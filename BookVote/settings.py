@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'et@hw1sv32tka@!_k0g=8)@x)y0ifk3j(vro=ce5w+zu@-lxv^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['localhost', 'bookvotingapp.herokuapp.com']
