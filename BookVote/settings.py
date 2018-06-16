@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = ''
+SECRET_KEY = 'et@hw1sv32tka@!_k0g=8)@x)y0ifk3j(vro=ce5w+zu@-lxv^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'BookVote.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = 'decouple.UndefinedValueError: SECRET_KEY not found. Declare it as envvar or define a default value.'
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 DATABASES = {
