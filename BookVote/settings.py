@@ -24,10 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'et@hw1sv32tka@!_k0g=8)@x)y0ifk3j(vro=ce5w+zu@-lxv^'
+# SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 
 
 ALLOWED_HOSTS = ['localhost', 'bookvotingapp.herokuapp.com']
@@ -89,13 +89,13 @@ WSGI_APPLICATION = 'BookVote.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# SECRET_KEY = config('SECRET_KEY')
-# DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://ctzjohvwiaeivx:071a1544d51e9e01575600087dc571fbf7f7f0fa56a19eedb3bee62eff36d1a0@ec2-54-83-59-120.compute-1.amazonaws.com:5432/d6rmlbc2q1qbui'
-    )
+        default=config('DATABASE_URL')
+        )
 }
 
 # Password validation
