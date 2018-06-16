@@ -4,7 +4,7 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 
 
-[packages]
+package_name = "version"
 
 django = "*"
 gunicorn = "*"
