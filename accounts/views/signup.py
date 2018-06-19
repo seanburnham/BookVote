@@ -39,7 +39,7 @@ class Signup(Formless):
         if umod.User.objects.filter(username=username).count() > 0:
             raise forms.ValidationError('This username is already taken. Could you already be signed up?')
 
-        chars = ('0123456789 abcdefghijklmnopqrstuvwxyz')
+        chars = ('0123456789 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         for char in username:
             if char not in chars:
                 raise forms.ValidationError('Usernames may only inlcude alphanumeric characters, numbers, and spaces.')
