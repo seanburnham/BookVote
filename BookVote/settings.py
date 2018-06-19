@@ -100,7 +100,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default='postgres://ctzjohvwiaeivx:071a1544d51e9e01575600087dc571fbf7f7f0fa56a19eedb3bee62eff36d1a0@ec2-54-83-59-120.compute-1.amazonaws.com:5432/d6rmlbc2q1qbui'
         )
 }
 
