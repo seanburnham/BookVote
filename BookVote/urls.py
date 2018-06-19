@@ -19,6 +19,7 @@ from django.contrib import admin
 urlpatterns = [
     # the built-in Django administrator
     url(r'^admin/', admin.site.urls),
+    url(r'^books/', include('books.urls')),
 
     # urls for any third-party apps go here
 
