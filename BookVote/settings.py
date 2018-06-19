@@ -30,7 +30,7 @@ SECRET_KEY = 'et@hw1sv32tka@!_k0g=8)@x)y0ifk3j(vro=ce5w+zu@-lxv^'
 # DEBUG = False
 
 
-ALLOWED_HOSTS = ['localhost', 'bookvotingapp.herokuapp.com']
+ALLOWED_HOSTS = ['bookvotingapp.herokuapp.com']
 
 
 AUTH_USER_MODEL = 'users.User'
@@ -96,26 +96,26 @@ WSGI_APPLICATION = 'BookVote.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 # SECRET_KEY = 'decouple.UndefinedValueError: SECRET_KEY not found. Declare it as envvar or define a default value.'
-# DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL')
-#         )
-# }
-
-
-DEBUG = True
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'SeanBurnham',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+        )
 }
+
+
+# DEBUG = True
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'SeanBurnham',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
