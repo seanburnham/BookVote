@@ -1,0 +1,38 @@
+<%inherit file="homepage/templates/base.htm" />
+
+<%block name="headerContent">
+<div></div>
+</%block>
+
+<%block name="content">
+                       
+<div class="container">
+    <div class="row justify-content-center">
+
+        <!-- col.// -->
+        <aside class="col-md-6 col-sm-6 ">
+            <div class="card">
+                <article class="card-body">
+                    <h4 class="card-title mb-4 mt-1 text-center">Sign Up!</h4>
+                    <p>
+                        <a href="" class="btn btn-block btn-facebook">
+                            <i class="fa fa-facebook fa-fw"></i>   Login via facebook</a>
+                        <a href="" class="btn btn-block btn-github">
+                            <i class="fa fa-github fa-fw"></i>   Login via GitHub</a>
+                        <a href="" class="btn btn-block btn-google">
+                            <i class="fa fa-google fa-fw"></i>   Login via Google</a>
+                        <a href="" class="btn btn-block btn-twitter">
+                             <i class="fa fa-twitter"></i>   Login via Twitter</a>
+                    </p>
+                    <hr>
+                    ${form}
+                </article>
+            </div>
+            <!-- card.// -->
+        </aside>
+    </div>
+    <!-- row.// -->
+</div>
+<!--container end.//-->
+
+</%block>
