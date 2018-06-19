@@ -1,0 +1,45 @@
+li {
+    float: left;
+}
+
+li button{
+    float: right;
+}
+
+#searchBtn{
+    font-size: 12px;
+}
+
+li img{
+    max-height: 50px;
+}
+
+
+li h4, h5, img {
+    display: inline-block;
+}
+
+.titleDiv{
+    margin-left: 20px;
+    display: inline-block;
+    max-width:450px;
+    text-overflow:'ellipsis';
+    overflow:hidden;
+    white-space: nowrap;
+}
+
+#resultsDiv{
+    margin-top: 10px;
+    max-height: 400px;
+    overflow: scroll;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.alert{
+    display: none;
+}
+
+#bookImage{
+    max-height: 200px;
+}
