@@ -20,7 +20,6 @@ from books import views
 urlpatterns = [
     # the built-in Django administrator
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.bookvote, name='bookvote'),
 
     # urls for any third-party apps go here
 
