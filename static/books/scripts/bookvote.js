@@ -23,7 +23,7 @@ function bookSearch() {
     document.getElementById('searchResults').innerHTML = "";
 
     $.ajax({
-        url: "https://www.googleapis.com/books/v1/volumes?q=" + search,
+        url: "https://www.googleapis.com/books/v1/volumes?q=" + search + ":keyes&key=AIzaSyDNoBh8E3DyB1PTktxBE2ZLpIK2kIPipS4",
         dataType: "json",
 
         success: function (data) {
@@ -54,7 +54,7 @@ function addBookToList(isbn) {
     
     $.when(
         $.ajax({
-            url: "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn,
+            url: "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn + ":keyes&key=AIzaSyDNoBh8E3DyB1PTktxBE2ZLpIK2kIPipS4",
             dataType: "json",
             type: 'GET'
         }).done(function (data) {
