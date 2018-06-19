@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 import json
 from django.http import HttpResponse
-import requests
+# import requests
 import sys
 
 from django.views.decorators.csrf import csrf_protect
