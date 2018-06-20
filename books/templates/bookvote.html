@@ -42,8 +42,12 @@
                             <img src="${bookList[0].image}">
                         </div>
                         <div id="ratingInfo" class="text-center">
-                            <h6 id="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
-                            <h6 id="pageText">Page Count - ${bookList[0].pageCount}</h6>
+                            %if bookList[0].avgRating:
+                                <h6 id="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
+                            %endif
+                            %if bookList[0].pageCount:
+                                <h6 id="pageText">Page Count - ${bookList[0].pageCount}</h6>
+                            %endif
                         </div>
                         <div id="bookDesc">
                             <p class="card-text" style="margin-top: 10px;">${bookList[0].description}</p>
