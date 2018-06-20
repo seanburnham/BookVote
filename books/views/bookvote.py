@@ -30,7 +30,9 @@ def process_request(request):
             b.author = request.POST.get('author')
             b.isbn = request.POST.get('isbn')
             b.image = request.POST.get('image')
-            b.textSnippet = request.POST.get('textSnippet')
+            b.description = request.POST.get('description')
+            b.avgRating = request.POST.get('avgRating')
+            b.pageCount = request.POST.get('pageCount')
             b.users_id = request.user.id
             b.save()
 
