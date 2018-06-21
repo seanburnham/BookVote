@@ -49,6 +49,10 @@ function bookSearch() {
 
 //url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
 
+// GOODREADS
+// key: Te7ahdToiP8n7iV3Lpgw6g
+// secret: MXan67GqmOfvXAHE46udKtrCX9R59uOzILVPhydIo
+
 function addBookToList(isbn) {
     "use strict";
     

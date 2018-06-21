@@ -5,7 +5,7 @@
 
 <head>
 
-    <title>DMP</title>
+    <title>BookVoteApp</title>
 
     ## add any site-wide scripts or CSS here; for example, jquery:
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,6 +22,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="/static/homepage/scripts/index.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="${ STATIC_URL }homepage/media/logo.png" />
 
     ## render the static file links with the same name as this template
     <script src="/django_mako_plus/dmp-common.min.js"></script>
@@ -80,7 +82,7 @@
 
     <header>
         <%block name="headerContent">
-                <img src="${ STATIC_URL }homepage/media/logo.png" alt="python" />
+                <img src="${ STATIC_URL }homepage/media/logo.png" alt="Logo" />
                 <div class="title">Welcome to the <br/> BookClub!</div>
             </%block>
         </header>

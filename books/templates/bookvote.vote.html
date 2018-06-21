@@ -3,13 +3,16 @@
 <div id="bookImage">
     <img src="${bookList[0].image}">
 </div>
-<p class="card-text" style="margin-top: 10px;">${bookList[0].textSnippet}</p>
+<p class="card-text" style="margin-top: 10px;">${bookList[0].description}</p>
 <a href="" class="btn btn-primary" id="upVote" data-id="${bookList[0].id}" style="margin-right: 20px;">
     <i class="fa fa-thumbs-up" style="font-size: 24px;"></i>
 </a>
 <a href="" class="btn btn-danger" id="downVote" data-id="${bookList[0].id}" style="margin-left: 20px;">
     <i class="fa fa-thumbs-down" style="font-size: 24px;"></i>
 </a>
+<div class="text-right">
+    <a target="_blank" href="https://www.goodreads.com/book/isbn/${bookList[0].isbn}" >View on Goodreads</a>
+</div>
 %else:
 <h5 class="card-title">Sorry!</h5>
 <p class="card-text">You have voted on all the available books. Feel free to add more to the voting list.</p>

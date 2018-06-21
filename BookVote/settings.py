@@ -30,6 +30,9 @@ SECRET_KEY = 'et@hw1sv32tka@!_k0g=8)@x)y0ifk3j(vro=ce5w+zu@-lxv^'
 # DEBUG = False
 
 
+
+
+
 ALLOWED_HOSTS = ['localhost','bookvotingapp.herokuapp.com']
 
 
