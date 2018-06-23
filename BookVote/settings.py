@@ -99,26 +99,26 @@ WSGI_APPLICATION = 'BookVote.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 # SECRET_KEY = 'decouple.UndefinedValueError: SECRET_KEY not found. Declare it as envvar or define a default value.'
-DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = config('DEBUG', default=False, cast=bool)
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://ctzjohvwiaeivx:071a1544d51e9e01575600087dc571fbf7f7f0fa56a19eedb3bee62eff36d1a0@ec2-54-83-59-120.compute-1.amazonaws.com:5432/d6rmlbc2q1qbui'
-        )
-}
-
-
-# DEBUG = True
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'SeanBurnham',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
+#     'default': dj_database_url.config(
+#         default='postgres://ctzjohvwiaeivx:071a1544d51e9e01575600087dc571fbf7f7f0fa56a19eedb3bee62eff36d1a0@ec2-54-83-59-120.compute-1.amazonaws.com:5432/d6rmlbc2q1qbui'
+#         )
 # }
+
+
+DEBUG = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'SeanBurnham',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation

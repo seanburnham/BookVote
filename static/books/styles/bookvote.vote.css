@@ -1,0 +1,26 @@
+#bookImage{
+    max-height: 200px;
+}
+
+#bookDesc{
+    text-align: left;
+    max-height: 300px;
+    overflow: scroll;
+    margin-bottom: 10px;
+}
+
+#ratingText{
+    margin-top: 10px; 
+    margin-bottom: 0; 
+    margin-right: 5px; 
+    display: inline-block;
+    color: darkred;
+}
+
+#pageText{
+    margin-top: 10px; 
+    margin-bottom: 0; 
+    margin-left: 5px; 
+    display: inline-block;
+    color: darkred;
+}

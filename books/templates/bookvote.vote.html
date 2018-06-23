@@ -3,7 +3,21 @@
 <div id="bookImage">
     <img src="${bookList[0].image}">
 </div>
-<p class="card-text" style="margin-top: 10px;">${bookList[0].description}</p>
+<div id="ratingInfo" class="text-center">
+    %if bookList[0].avgRating:
+        <h6 id="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
+    %endif 
+    %if bookList[0].pageCount:
+        <h6 id="pageText">Page Count - ${bookList[0].pageCount}</h6>
+    %endif
+</div>
+<div id="bookDesc">
+    %if bookList[0].description:
+    <p class="card-text" style="margin-top: 10px;">${bookList[0].description}</p>
+    %else:
+    <p>Sorry no description available at this time.</p>
+    %endif
+</div>
 <a href="" class="btn btn-primary" id="upVote" data-id="${bookList[0].id}" style="margin-right: 20px;">
     <i class="fa fa-thumbs-up" style="font-size: 24px;"></i>
 </a>
@@ -11,9 +25,9 @@
     <i class="fa fa-thumbs-down" style="font-size: 24px;"></i>
 </a>
 <div class="text-right">
-    <a target="_blank" href="https://www.goodreads.com/book/isbn/${bookList[0].isbn}" >View on Goodreads</a>
+    <a target="_blank" href="https://www.goodreads.com/book/isbn/${bookList[0].isbn}">View on Goodreads</a>
 </div>
 %else:
 <h5 class="card-title">Sorry!</h5>
 <p class="card-text">You have voted on all the available books. Feel free to add more to the voting list.</p>
-%endif
+%endif 
