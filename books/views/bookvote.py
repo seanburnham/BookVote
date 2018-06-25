@@ -25,36 +25,6 @@ def process_request(request):
         bookList = []
 
 
-    # if request.method == "POST":
-    #     try:
-    #         b = bMod.Books.objects.get(isbn = request.POST.get('isbn'))
-    #     except:
-    #         key = "Te7ahdToiP8n7iV3Lpgw6g"
-
-    #         #Grab data from Goodreads API
-    #         response = requests.get("https://www.goodreads.com/search.xml?key=" + key + "&q=" + request.POST.get('isbn'))
-    #         o = xmltodict.parse(response.content)
-    #         result_tree = json.loads(json.dumps(o))
-            
-    #         print(result_tree['GoodreadsResponse']['search']['results']['work']['average_rating'])
-                
-
-    #         b = bMod.Books()
-    #         b.title = request.POST.get('title')
-    #         b.author = request.POST.get('author')
-    #         b.isbn = request.POST.get('isbn')
-    #         b.image = request.POST.get('image')
-    #         b.description = request.POST.get('description')
-    #         b.avgRating = result_tree['GoodreadsResponse']['search']['results']['work']['average_rating']
-    #         b.pageCount = request.POST.get('pageCount')
-    #         b.users_id = request.user.id
-    #         b.save()
-
-    
-    # csrfContext = RequestContext(request)
-
-    # print('-=-=-=-=-=-=-=-=-=-', bookList)
-
     context = {
         'bookList': bookList,
     }
@@ -70,15 +40,19 @@ def addToList(request, isbn):
     try:
         book = bMod.Books.objects.get(isbn = isbn)
     except:
+
         #Grab data from Goodreads API
         goodReadsKey = "Te7ahdToiP8n7iV3Lpgw6g"
         response = requests.get("https://www.goodreads.com/search.xml?key=" + goodReadsKey + "&q=" + isbn)
         o = xmltodict.parse(response.content)
         goodreads_tree = json.loads(json.dumps(o))
 
+        title = goodreads_tree['GoodreadsResponse']['search']['results']['work']['best_book']['title']
+
         #Grab data from Google API
+        #Search by goodreads title data because google results end up grabbing multiple books even under one isbn
         googleKey = "AIzaSyDNoBh8E3DyB1PTktxBE2ZLpIK2kIPipS4"
-        response2 = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + isbn + "&key=" + googleKey)
+        response2 = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + title + "&key=" + googleKey)
         google_tree = json.loads(response2.content)
 
         #Create a new book
@@ -129,7 +103,7 @@ def upVote(request, bookID):
 @view_function
 @login_required
 def downVote(request, bookID):
-    # add upVote to database
+    # add downVote to database
     
     try:
         book = bMod.Books.objects.get(id = bookID)
