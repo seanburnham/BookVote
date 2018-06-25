@@ -5,7 +5,8 @@
 </%block>
 
 <%block name="content">
-        <div class="card w-50 text-center" style="left: 25%; margin-top: -70px;">
+<div class="col d-flex justify-content-center">
+        <div class="card text-center" style="margin-top: -70px; max-width: 700px;">
             <div class="card-body">
                 <h3 class="card-title">Top Voted Book</h3>
                 <h5>${bookList[0].title}</h5>
@@ -34,4 +35,5 @@
                 </ul>
             </div>
         </div>
+    </div>
 </%block>

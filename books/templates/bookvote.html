@@ -7,31 +7,29 @@
 <%block name="content">
     
     <div class="row">
-        <div class="col-md-6">
-            <div style="margin-left: 100px;">
-                <div class="text-center">
-                        <div class="alert alert-success alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Your book has been added to the list!
-                        </div>
-                        <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Something went wrong please try adding your book again.
-                        </div>
-                    <input type="search" id="search" placeholder="Title or Author" onkeyup="bookSearch();">
-                    <button id="searchBtn" class="btn btn-primary" onclick="bookSearch();">Search</button>
-                    <div id="resultsDiv" class="text-left">
-                        <ul class="list-group" id="searchResults">
-                            <li>
-                                <p>Results...</p>
-                            </li>
-                        </ul>
-                    </div>
+        <div class="col-md-6 text-center">
+            <div class="text-center" style="margin-left: 20px; margin-right: 20px;">
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Your book has been added to the list!
                 </div>
-            </div> 
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Something went wrong please try adding your book again.
+                </div>
+                <input type="search" id="search" placeholder="Title or Author" onkeyup="bookSearch();">
+                <button id="searchBtn" class="btn btn-primary" onclick="bookSearch();">Search</button>
+                <div id="resultsDiv" class="text-left" style="margin-bottom: 30px;">
+                    <ul class="list-group" id="searchResults">
+                        <li>
+                            <p>Results...</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <div class="card w-75 text-center">
+        <div class="col-md-6 text-center">
+            <div class="card text-center" style="margin-left: 20px; margin-right: 20px;">
                 <div class="card-header">
                     Vote Here:
                 </div>
