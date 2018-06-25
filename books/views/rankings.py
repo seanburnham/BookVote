@@ -10,7 +10,7 @@ from django.db.models import Count
 def process_request(request):
 
     try:
-        bookList = bMod.Books.objects.annotate(q_count=Count('upVotes')).order_by('-q_count','dateCreated')
+        bookList = bMod.Books.objects.annotate(q_count=Count('upVotes')).order_by('-q_count', '-avgRating', 'dateCreated')
     except:
         bookList = []
 

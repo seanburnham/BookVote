@@ -24,7 +24,6 @@ def process_request(request):
     except:
         bookList = []
 
-
     context = {
         'bookList': bookList,
     }

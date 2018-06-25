@@ -13,6 +13,14 @@
                 <div>
                     <img src="${bookList[0].image}">
                 </div>
+                <div id="ratingInfo" class="text-center">
+                    %if bookList[0].avgRating:
+                        <h6 id="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
+                    %endif
+                    %if bookList[0].pageCount:
+                        <h6 id="pageText">Page Count - ${bookList[0].pageCount}</h6>
+                    %endif
+                </div>
                 <div style="margin-top: 10px;">
                     <a><i class="fa fa-thumbs-up" style="font-size: 24px;"></i></a> - ${bookList[0].upVotes.count()}
                     <a><i class="fa fa-thumbs-down" style="font-size: 24px;"></i></a> - ${bookList[0].downVotes.count()}
@@ -24,7 +32,13 @@
                     <li class="list-group-item list-group-item"> 
                         <img src="${b.image}">
                         <div class="titleDiv align-middle"> 
-                            <p>${b.title} - ${b.author}</p> 
+                            <p style="margin-bottom: 0;">${b.title} - ${b.author}</p> 
+                            %if bookList[0].avgRating:
+                                <h6 class="listRating">Avg Rating - ${b.avgRating}/5.0</h6>
+                            %endif
+                            %if bookList[0].pageCount:
+                                <h6 class="listRating">Page Count - ${b.pageCount}</h6>
+                            %endif
                         </div>
                         <div class="text-right" style="display: inline-block; float: right;">
                             <a><i class="fa fa-thumbs-up" style="font-size: 20px;"></i></a> - ${b.upVotes.count()}

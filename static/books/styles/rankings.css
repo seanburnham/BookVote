@@ -19,3 +19,26 @@ li h4, h5, img {
     overflow: hidden;
     white-space: nowrap;
 }
+
+#ratingText{
+    margin-top: 10px; 
+    margin-bottom: 0; 
+    margin-right: 5px; 
+    display: inline-block;
+    color: darkred;
+}
+
+#pageText{
+    margin-top: 10px; 
+    margin-bottom: 0; 
+    margin-left: 5px; 
+    display: inline-block;
+    color: darkred;
+}
+
+.listRating{
+    margin: 0;
+    display: inline-block;
+    color: darkred;
+    font-size: 10px;
+}
