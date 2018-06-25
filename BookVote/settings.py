@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'BookVote.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 # SECRET_KEY = 'decouple.UndefinedValueError: SECRET_KEY not found. Declare it as envvar or define a default value.'
-DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = config('DEBUG', default=False, cast=bool)
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -108,7 +108,7 @@ DATABASES = {
 }
 
 
-# DEBUG = True
+DEBUG = True
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
