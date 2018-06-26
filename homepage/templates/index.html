@@ -2,6 +2,70 @@
 
 <%block name="content">
     <div class="content">
-        <a href="/books/bookvote/" class="btn btn-warning" style="font-size: 40px;">Start Voting!</a>
+        <div id="selectGroup">
+            %if userGroups:
+                <div class="col d-flex justify-content-center">
+                    <div class="card text-left" style="margin-top: -40px; margin-bottom: 20px; min-width: 300px; max-width: 500px; box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);">
+                        <div class="card-header text-center">
+                            Select a Group:
+                        </div>
+                        <div class="list-group">
+                            %for g in userGroups:
+                                <a href="" class="list-group-item list-group-item-action">${g.name} - ${g.users.count()} members</a>
+                            %endfor
+                        </div>
+                    </div>
+                </div>
+                <h6>-- OR --</h6>
+                <a href="/groups/create/" class="btn btn-warning" style="font-size: 15px;">Start New Group</a>
+                <button type="button" class="btn btn-warning" style="font-size: 15px;" data-toggle="modal" data-target="#groupListModal">
+                    Join Existing Group
+                </button>
+            %else:
+                <a href="/groups/create/" class="btn btn-warning" style="font-size: 30px;">Start New Group</a>
+                <button type="button" class="btn btn-warning" style="font-size: 30px;" data-toggle="modal" data-target="#groupListModal">
+                    Join Existing Group
+                </button>
+            %endif
+        </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="groupListModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Select a Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                %if groups:
+                    <div class="search text-center">
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search groups.." title="Type in a tag">
+                        <input title="Search" value="" type="submit" class="searchbutton">
+                    </div>
+                    <div id="gridContainer">
+                        %for g in groups:
+                            <div class="form-check text-left">
+                                <input class="form-check-input" type="radio" name="groupListBtn" id="${g.name}" value="${g.id}">
+                                <label class="form-check-label" for="${g.name}">
+                                    ${g.name}
+                                </label>
+                            </div>
+                        %endfor
+                    </div>
+                %else:
+                    <p>Sorry no new groups to join!</p>
+                %endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="joinBtn" onclick="addGroup();" type="button" class="btn btn-primary">Join</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </%block>

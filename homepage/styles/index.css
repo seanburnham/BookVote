@@ -5,3 +5,60 @@ main {
 h4.utc-time {
     color: #3771A1;
 }
+
+.list-group-item:hover{
+    background-color: rgb(78, 163, 233);
+}
+
+.list-group{
+    max-height: 250px;
+    overflow: scroll;
+}
+
+.search{
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+#myInput {
+    outline: 0;
+    height: 42px;
+    width: 244px;
+    line-height: 42px;
+    padding: 0 16px;
+    background-color: rgba(206, 204, 204, 0.8);
+    color: #212121;
+    border: 0;
+    -webkit-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  #myInput:focus {
+    outline: 0;
+    background-color: rgba(206, 204, 204, 0.8);
+  }
+
+.searchbutton {
+    outline: 0;
+    background: none;
+    background-color: rgba(38, 50, 56, 0.8);
+    height: 42px;
+    width: 42px;
+    text-align: center;
+    line-height: 42px;
+    border: 0;
+    color: #FFF;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 16px;
+    text-rendering: auto;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition: background-color .4s ease;
+    transition: background-color .4s ease;
+    -webkit-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .searchbutton:hover {
+    background-color: rgb(78, 163, 233);;
+    cursor: pointer;
+  }

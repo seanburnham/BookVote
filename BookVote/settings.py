@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'users',
     'formlib',
     'books',
+    'groups',
 ]
 
 MIDDLEWARE = [
@@ -91,26 +92,26 @@ WSGI_APPLICATION = 'BookVote.wsgi.application'
 
 
 # Database
-DEBUG = config('DEBUG', default=False, cast=bool)
 SECRET_KEY = config('SECRET_KEY')
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-        )
-}
-
-
-# DEBUG = True
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'SeanBurnham',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#         )
 # }
+
+# DEBUG = config('DEBUG', default=False, cast=bool)
+
+DEBUG = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'SeanBurnham',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation

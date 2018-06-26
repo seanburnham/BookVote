@@ -1,0 +1,24 @@
+%if userGroups:
+<div class="col d-flex justify-content-center">
+    <div class="card text-left" style="margin-top: -40px; margin-bottom: 20px; min-width: 300px; max-width: 500px; box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);">
+        <div class="card-header text-center">
+            Select a Group:
+        </div>
+        <div class="list-group">
+            %for g in userGroups:
+                <a href="" class="list-group-item list-group-item-action">${g.name}</a>
+            %endfor
+        </div>
+    </div>
+</div>
+<h6>-- OR --</h6>
+<a href="/groups/create/" class="btn btn-warning" style="font-size: 15px;">Start New Group</a>
+<button type="button" class="btn btn-warning" style="font-size: 15px;" data-toggle="modal" data-target="#groupListModal">
+    Join Existing Group
+</button>
+%else:
+<a href="/groups/create/" class="btn btn-warning" style="font-size: 30px;">Start New Group</a>
+<button type="button" class="btn btn-warning" style="font-size: 30px;" data-toggle="modal" data-target="#groupListModal">
+    Join Existing Group
+</button>
+%endif

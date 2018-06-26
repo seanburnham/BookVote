@@ -2,15 +2,41 @@ from django.conf import settings
 from django_mako_plus import view_function, jscontext
 from datetime import datetime, timezone
 from django.contrib.auth.decorators import login_required
+from groups import models as gMod
 
 @view_function
 @login_required
 def process_request(request):
-    utc_time = datetime.utcnow()
+    
+    try:
+        userGroups = gMod.Group.objects.filter(users__id__contains = request.user.id)
+    except:
+        userGroups = []
+
+    groups = gMod.Group.objects.exclude(users__id__contains = request.user.id)
+
     context = {
-        # sent to index.html:
-        'utc_time': utc_time,
-        # sent to index.html and index.js:
-        jscontext('utc_epoch'): utc_time.timestamp(),
+        'userGroups': userGroups,
+        'groups':groups,
     }
     return request.dmp.render('index.html', context)
+
+@view_function
+@login_required
+def addGroup(request, groupID):
+
+    try:
+        group = gMod.Group.objects.get(id = groupID)
+        group.users.add(request.user)
+    except:
+        pass
+
+    try:
+        userGroups = gMod.Group.objects.filter(users__id__contains = request.user.id)
+    except:
+        userGroups = []
+
+    context = {
+        'userGroups': userGroups,
+    }
+    return request.dmp.render('index.addGroup.html', context)
