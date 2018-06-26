@@ -9,6 +9,7 @@ import sys
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 from books import models as bMod
+from groups import models as gMod
 from django.contrib.auth.decorators import login_required
 import requests
 import xmltodict
@@ -16,16 +17,19 @@ import xmltodict
 
 @view_function
 @login_required
-def process_request(request):
+def process_request(request, groupID):
 
+    group = gMod.Group.objects.get(id = groupID)
 
     try:
-        bookList = bMod.Books.objects.exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
+        books = group.bookList.all()
+        bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
     except:
         bookList = []
 
     context = {
         'bookList': bookList,
+        'group': group,
     }
 
     return request.dmp.render('bookvote.html', context)
@@ -33,7 +37,7 @@ def process_request(request):
 
 @view_function
 @login_required
-def addToList(request, isbn):
+def addToList(request, groupID, isbn):
     # add upVote to database
     
     try:
@@ -66,8 +70,13 @@ def addToList(request, isbn):
         b.users_id = request.user.id
         b.save()
 
+        #Add to current group
+        group = gMod.Group.objects.get(id=groupID)
+        group.bookList.add(b)
+
     try:
-        bookList = bMod.Books.objects.exclude(upVotes__id__contains = request.user.id).exclude(downVotes__id__contains = request.user.id).order_by('-dateCreated');
+        books = group.bookList.all()
+        bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
     except:
         bookList = []
 
@@ -80,7 +89,7 @@ def addToList(request, isbn):
 
 @view_function
 @login_required
-def upVote(request, bookID):
+def upVote(request, groupID, bookID):
     # add upVote to database
     
     try:
@@ -89,8 +98,11 @@ def upVote(request, bookID):
     except:
         pass
 
+    group = gMod.Group.objects.get(id=groupID)
+
     try:
-        bookList = bMod.Books.objects.exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
+        books = group.bookList.all()
+        bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
     except:
         bookList = []
 
@@ -101,7 +113,7 @@ def upVote(request, bookID):
 
 @view_function
 @login_required
-def downVote(request, bookID):
+def downVote(request, groupID, bookID):
     # add downVote to database
     
     try:
@@ -110,8 +122,11 @@ def downVote(request, bookID):
     except:
         pass
 
+    group = gMod.Group.objects.get(id=groupID)
+
     try:
-        bookList = bMod.Books.objects.exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
+        books = group.bookList.all()
+        bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
     except:
         bookList = []
 

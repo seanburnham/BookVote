@@ -11,7 +11,7 @@
                         </div>
                         <div class="list-group">
                             %for g in userGroups:
-                                <a href="" class="list-group-item list-group-item-action">${g.name} - ${g.users.count()} members</a>
+                                <a href="books/bookvote/${g.id}" class="list-group-item list-group-item-action">${g.name} - ${g.users.count()} members</a>
                             %endfor
                         </div>
                     </div>
