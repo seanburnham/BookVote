@@ -5,49 +5,60 @@
 </%block>
 
 <%block name="content">
-<div class="col d-flex justify-content-center">
-        <div class="card text-center" style="margin-top: -70px; max-width: 700px;">
-            <div class="card-body">
-                <h3 class="card-title">Top Voted Book</h3>
-                <h5>${bookList[0].title}</h5>
-                <div>
-                    <img src="${bookList[0].image}">
-                </div>
-                <div id="ratingInfo" class="text-center">
-                    %if bookList[0].avgRating:
-                        <h6 id="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
-                    %endif
-                    %if bookList[0].pageCount:
-                        <h6 id="pageText">Page Count - ${bookList[0].pageCount}</h6>
-                    %endif
-                </div>
-                <div style="margin-top: 10px;">
-                    <a><i class="fa fa-thumbs-up" style="font-size: 24px;"></i></a> - ${bookList[0].upVotes.count()}
-                    <a><i class="fa fa-thumbs-down" style="font-size: 24px;"></i></a> - ${bookList[0].downVotes.count()}
-                </div>
-            </div>
-            <div class="text-left">
-                <ul class="list-group list-group-flush" style="border-top: 1px solid rgba(0,0,0,.125); ">
-                    %for b in bookList[1:]:
-                    <li class="list-group-item list-group-item"> 
-                        <img src="${b.image}">
-                        <div class="titleDiv align-middle"> 
-                            <p style="margin-bottom: 0;">${b.title} - ${b.author}</p> 
-                            %if bookList[0].avgRating:
-                                <h6 class="listRating">Avg Rating - ${b.avgRating}/5.0</h6>
+<div>
+    <div class="row justify-content-center">
+    %for group in bookDict:
+        %if bookDict[group]:
+        <div class="column">
+                <div class="card text-center" style="margin: 15px; max-width: 430px; height: 580px;">
+                    <div class="card-header">
+                        ${group}
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Top Voted Book</h3>
+                        <h5>${bookDict[group][0].title}</h5>
+                        <div>
+                            <img src="${bookDict[group][0].image}" style="max-height: 100px;">
+                        </div>
+                        <div id="ratingInfo" class="text-center">
+                            %if bookDict[group][0].avgRating:
+                                <h6 id="ratingText">Avg Rating - ${bookDict[group][0].avgRating}/5.0</h6>
                             %endif
-                            %if bookList[0].pageCount:
-                                <h6 class="listRating">Page Count - ${b.pageCount}</h6>
+                            %if bookDict[group][0].pageCount:
+                                <h6 id="pageText">Page Count - ${bookDict[group][0].pageCount}</h6>
                             %endif
                         </div>
-                        <div class="text-right" style="display: inline-block; float: right;">
-                            <a><i class="fa fa-thumbs-up" style="font-size: 20px;"></i></a> - ${b.upVotes.count()}
-                            <a><i class="fa fa-thumbs-down" style="font-size: 20px;"></i></a> - ${b.downVotes.count()}
+                        <div style="margin-top: 10px;">
+                            <a><i class="fa fa-thumbs-up" style="font-size: 24px;"></i></a> - ${bookDict[group][0].upVotes.count()}
+                            <a><i class="fa fa-thumbs-down" style="font-size: 24px;"></i></a> - ${bookDict[group][0].downVotes.count()}
                         </div>
-                    </li>
-                    %endfor
-                </ul>
+                    </div>
+                    <div class="text-left" style="max-height: 250px; overflow: scroll;">
+                        <ul class="list-group list-group-flush" style="border-top: 1px solid rgba(0,0,0,.125); ">
+                            %for b in bookDict[group][1:]:
+                            <li class="list-group-item list-group-item"> 
+                                <img src="${b.image}">
+                                <div class="titleDiv align-middle"> 
+                                    <p style="margin-bottom: 0;">${b.title} - ${b.author}</p> 
+                                    %if b.avgRating:
+                                        <h6 class="listRating">Avg Rating - ${b.avgRating}/5.0</h6>
+                                    %endif
+                                    %if b.pageCount:
+                                        <h6 class="listRating">Page Count - ${b.pageCount}</h6>
+                                    %endif
+                                </div>
+                                <div class="text-right" style="display: inline-block; float: right;">
+                                    <a><i class="fa fa-thumbs-up" style="font-size: 20px;"></i></a> - ${b.upVotes.count()}
+                                    <a><i class="fa fa-thumbs-down" style="font-size: 20px;"></i></a> - ${b.downVotes.count()}
+                                </div>
+                            </li>
+                            %endfor
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
+        %endif
+    %endfor
     </div>
+</div>
 </%block>

@@ -1,3 +1,7 @@
+header{
+    padding: 0;
+}
+
 li {
     float: left;
 }
@@ -14,10 +18,9 @@ li h4, h5, img {
 .titleDiv{
     margin-left: 20px;
     display: inline-block;
-    max-width: 450px;
+    max-width: 200px;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
 }
 
 #ratingText{
