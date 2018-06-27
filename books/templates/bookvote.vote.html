@@ -1,14 +1,14 @@
 %if bookList:
 <h5 class="card-title">${bookList[0].title}</h5>
-<div id="bookImage">
+<div class="bookImage">
     <img src="${bookList[0].image}">
 </div>
-<div id="ratingInfo" class="text-center">
+<div class="ratingInfo" class="text-center">
     %if bookList[0].avgRating:
-        <h6 id="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
+        <h6 class="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
     %endif 
     %if bookList[0].pageCount:
-        <h6 id="pageText">Page Count - ${bookList[0].pageCount}</h6>
+        <h6 class="pageText">Page Count - ${bookList[0].pageCount}</h6>
     %endif
 </div>
 <div id="bookDesc">

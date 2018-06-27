@@ -23,15 +23,15 @@ li h4, h5, img {
 .titleDiv{
     margin-left: 20px;
     display: inline-block;
-    max-width: 450px;
+    max-width: 300px;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
 }
 
 #resultsDiv{
     margin-top: 10px;
     max-height: 400px;
+    max-width: 430;
     overflow: scroll;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
@@ -41,8 +41,8 @@ li h4, h5, img {
     display: none;
 }
 
-#bookImage{
-    max-height: 200px;
+.bookImage > img{
+    max-height: 150px;
 }
 
 #bookDesc{
@@ -52,7 +52,7 @@ li h4, h5, img {
     margin-bottom: 10px;
 }
 
-#ratingText{
+.ratingText{
     margin-top: 10px; 
     margin-bottom: 0; 
     margin-right: 5px; 
@@ -60,7 +60,7 @@ li h4, h5, img {
     color: darkred;
 }
 
-#pageText{
+.pageText{
     margin-top: 10px; 
     margin-bottom: 0; 
     margin-left: 5px; 

@@ -8,62 +8,117 @@
     
     <div class="row">
         <div class="col-md-6 text-center">
-            <div class="text-center" style="margin-left: 20px; margin-right: 20px;">
-                <div class="alert alert-success alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    Your book has been added to the list!
+            <div class="row justify-content-center">
+                <div class="card text-center" style="margin-left: 20px; margin-right: 20px; width: 430px;">
+                    <div class="card-header">
+                        Currently Reading
+                    </div>
+                    %if group.currentBook:
+                        <div class="card-body">
+                            <h5 class="card-title">${currentBook.title}</h5>
+                            <div class="bookImage">
+                                <img src="${currentBook.image}">
+                            </div>
+                            <div class="ratingInfo" class="text-center">
+                                %if currentBook.avgRating:
+                                    <h6 class="ratingText">Avg Rating - ${currentBook.avgRating}/5.0</h6>
+                                %endif
+                                %if currentBook.pageCount:
+                                    <h6 class="pageText">Page Count - ${currentBook.pageCount}</h6>
+                                %endif
+                            </div>
+                        </div>
+                    %else:
+                        <div class="card-body">
+                            <h3>Sorry no book has been selected for this group yet.</h3>
+                        </div>
+                    %endif
                 </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    Something went wrong please try adding your book again.
-                </div>
-                <input type="search" id="search" placeholder="Title or Author" onkeyup="bookSearch();">
-                <button id="searchBtn" class="btn btn-primary" onclick="bookSearch();">Search</button>
-                <div id="resultsDiv" class="text-left" style="margin-bottom: 30px;">
-                    <ul class="list-group" id="searchResults">
-                        <li>
-                            <p>Results...</p>
-                        </li>
+                <div class="card text-center" style="margin-top: 35px; margin-left: 20px; margin-right: 20px; width: 430px;">
+                    <div class="card-header">
+                        ${group.name} members:
+                    </div>
+                    <ul class="list-group list-group-flush text-left">
+                        <%! from datetime import datetime, timezone %>
+                        %for u in group.users.all():
+                            <li class="list-group-item">
+                                <div>
+                                    <p style="display: inline-block;">${u.first_name} ${u.last_name} - ${u.username}</p>
+                                    %if u.last_active:
+                                        %if ((datetime.now(timezone.utc) - u.last_active).seconds//60)%60 == 0:
+                                            <p style="display: inline-block; float: right; font-size:12px; color:darkred;">Last Active: now</p>
+                                        %elif (datetime.now(timezone.utc) - u.last_active).days <= 0:
+                                            <p style="display: inline-block; float: right; font-size:12px; color:darkred;">Last Active: ${((datetime.now(timezone.utc) - u.last_active).seconds//60)%60} minutes</p>
+                                        %else:
+                                            <p style="display: inline-block; float: right; font-size:12px; color:darkred;">Last Active: ${(datetime.now(timezone.utc) - u.last_active).days} days</p>
+                                        %endif
+                                    %endif
+                                </div>
+                            </li>
+                        %endfor
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-6 text-center">
-            <div class="card text-center" style="margin-left: 20px; margin-right: 20px;">
-                <div class="card-header">
-                    Vote Here:
+            <div class="row justify-content-center">
+                <div class="text-center" style="margin-left: 20px; margin-right: 20px;">
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Your book has been added to the list!
+                    </div>
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Something went wrong please try adding your book again.
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="search" id="search" placeholder="Add Book to Voting List" onkeyup="bookSearch();" style="width: 250px;">
+                        <button id="searchBtn" class="btn btn-primary" onclick="bookSearch();" style="margin-bottom: 2px;">Search</button>
+                    </div>
+                    <div id="resultsDiv" class="text-left" style="margin-bottom: 30px; display: none;">
+                        <ul class="list-group" id="searchResults">
+                            <li>
+                                <p>Results...</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card-body" id="bookStuff">
-                    %if bookList:
-                        <h5 class="card-title">${bookList[0].title}</h5>
-                        <div id="bookImage">
-                            <img src="${bookList[0].image}">
-                        </div>
-                        <div id="ratingInfo" class="text-center">
-                            %if bookList[0].avgRating:
-                                <h6 id="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
-                            %endif
-                            %if bookList[0].pageCount:
-                                <h6 id="pageText">Page Count - ${bookList[0].pageCount}</h6>
-                            %endif
-                        </div>
-                        <div id="bookDesc">
-                            %if bookList[0].description:
-                                <p class="card-text" style="margin-top: 10px;">${bookList[0].description}</p>
-                            %else:
-                                <p>Sorry no description available at this time.</p>
-                            %endif
-                        </div>
-                        <a href="" class="btn btn-primary" id="upVote" data-id="${bookList[0].id}" style="margin-right: 20px;"><i class="fa fa-thumbs-up" style="font-size: 24px;"></i></a>
-                        <a href="" class="btn btn-danger" id="downVote" data-id="${bookList[0].id}" style="margin-left: 20px;"><i class="fa fa-thumbs-down" style="font-size: 24px;"></i></a>
-                        <div class="text-right">
-                            <a target="_blank" href="https://www.goodreads.com/book/isbn/${bookList[0].isbn}" >View on Goodreads</a>
-                        </div>
-                        
-                    %else:
-                        <h5 class="card-title">Sorry!</h5>
-                        <p class="card-text">You have voted on all the available books. Feel free to add more to the voting list.</p>
-                    %endif
+                <div class="card text-center" style="margin-left: 20px; margin-right: 20px; width: 430px;">
+                    <div class="card-header">
+                        Vote Here:
+                    </div>
+                    <div class="card-body" id="bookStuff">
+                        %if bookList:
+                            <h5 class="card-title">${bookList[0].title}</h5>
+                            <div class="bookImage">
+                                <img src="${bookList[0].image}">
+                            </div>
+                            <div class="ratingInfo" class="text-center">
+                                %if bookList[0].avgRating:
+                                    <h6 class="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
+                                %endif
+                                %if bookList[0].pageCount:
+                                    <h6 class="pageText">Page Count - ${bookList[0].pageCount}</h6>
+                                %endif
+                            </div>
+                            <div id="bookDesc">
+                                %if bookList[0].description:
+                                    <p class="card-text" style="margin-top: 10px;">${bookList[0].description}</p>
+                                %else:
+                                    <p>Sorry no description available at this time.</p>
+                                %endif
+                            </div>
+                            <a href="" class="btn btn-primary" id="upVote" data-id="${bookList[0].id}" style="margin-right: 20px;"><i class="fa fa-thumbs-up" style="font-size: 24px;"></i></a>
+                            <a href="" class="btn btn-danger" id="downVote" data-id="${bookList[0].id}" style="margin-left: 20px;"><i class="fa fa-thumbs-down" style="font-size: 24px;"></i></a>
+                            <div class="text-right">
+                                <a target="_blank" href="https://www.goodreads.com/book/isbn/${bookList[0].isbn}" >View on Goodreads</a>
+                            </div>
+                            
+                        %else:
+                            <h5 class="card-title">Sorry!</h5>
+                            <p class="card-text">You have voted on all the available books. Feel free to add more to the voting list.</p>
+                        %endif
+                    </div>
                 </div>
             </div>
         </div>

@@ -40,6 +40,7 @@ $(function(){
 
 
 function bookSearch() {
+    document.getElementById('resultsDiv').style.display = "block";
     var groupID = $('#groupGreeting').data('group')
     var search = document.getElementById('search').value;
     document.getElementById('searchResults').innerHTML = "";

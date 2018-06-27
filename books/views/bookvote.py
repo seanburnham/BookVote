@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 from books import models as bMod
 from groups import models as gMod
+from users import models as uMod
 from django.contrib.auth.decorators import login_required
 import requests
 import xmltodict
@@ -27,9 +28,15 @@ def process_request(request, groupID):
     except:
         bookList = []
 
+    try:
+        currentBook = bMod.Books.objects.get(id=group.currentBook.id)
+    except:
+        currentBook = None
+        
     context = {
         'bookList': bookList,
         'group': group,
+        'currentBook': currentBook,
     }
 
     return request.dmp.render('bookvote.html', context)

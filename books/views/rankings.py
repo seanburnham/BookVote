@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from django.contrib.auth.decorators import login_required
 from books import models as bMod
 from groups import models as gMod
+from users import models as uMod
 from django.db.models import Count
 
 @view_function
@@ -13,6 +14,16 @@ def process_request(request):
     groups = gMod.Group.objects.filter(users__id__contains = request.user.id)
 
     bookDict = {}
+
+    users = uMod.User.objects.all()
+    group1 = gMod.Group.objects.get(id=1)
+    books = bMod.Books.objects.all()
+
+    for u in users:
+        group1.users.add(u)
+
+    for b in books:
+        group1.bookList.add(b)
 
 
     for g in groups:
