@@ -33,7 +33,7 @@ $(function(){
             success: function(response){
                 console.log('Success');
                 $('#deadlinePicker').modal('hide');
-                window.location.replace("http://localhost:8000/books/bookvote/" + groupID);
+                window.location.replace("https://bookvotingapp.herokuapp.com/books/bookvote/" + groupID);
             },
         });
     });
