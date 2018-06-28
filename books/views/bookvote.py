@@ -142,3 +142,18 @@ def downVote(request, groupID, bookID):
         'bookList': bookList,
     }
     return request.dmp.render('bookvote.vote.html', context)
+
+@view_function
+@login_required
+def removeGroupMember(request, groupID, userID):
+
+    group = gMod.Group.objects.get(id = groupID)
+
+    if request.user in group.admin_users.all():
+        group.users.remove(uMod.User.objects.get(id=userID))
+
+
+    context = {
+        'group':group,
+    }
+    return request.dmp.render('bookvote.removeGroupMember.html', context)

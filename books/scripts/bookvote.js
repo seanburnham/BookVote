@@ -1,5 +1,13 @@
 $(function(){
 
+    $(document).on('click', '#removeUserBtn', function(evt){
+        
+        $('#groupMembers').load('/books/bookvote.removeGroupMember/' + $('#groupGreeting').data('group') + '/' + $(this).data('user') + '/');
+        evt.preventDefault();
+        
+    });
+
+
     $(document).on('click', '#upVote', function (evt){
 
         $('#bookStuff').load('/books/bookvote.upVote/' + $('#groupGreeting').data('group') + '/' + $(this).data('id') + '/');
