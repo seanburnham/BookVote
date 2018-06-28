@@ -32,7 +32,8 @@ def process_request(request, groupID):
         currentBook = bMod.Books.objects.get(id=group.currentBook.id)
     except:
         currentBook = None
-        
+
+
     context = {
         'bookList': bookList,
         'group': group,

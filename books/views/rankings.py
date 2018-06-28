@@ -6,6 +6,8 @@ from books import models as bMod
 from groups import models as gMod
 from users import models as uMod
 from django.db.models import Count
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 @view_function
 @login_required
@@ -15,24 +17,27 @@ def process_request(request):
 
     bookDict = {}
 
-    users = uMod.User.objects.all()
-    group1 = gMod.Group.objects.get(id=1)
-    books = bMod.Books.objects.all()
-
-    for u in users:
-        group1.users.add(u)
-
-    for b in books:
-        group1.bookList.add(b)
-
 
     for g in groups:
-        bookDict[g.name] = g.bookList.all().annotate(q_count=Count('upVotes')).order_by('-q_count', '-avgRating', 'dateCreated')
+        bookDict[g] = g.bookList.all().annotate(q_count=Count('upVotes')).order_by('-q_count', '-avgRating', 'dateCreated')
 
-    # try:
-    #     bookList = bMod.Books.objects.annotate(q_count=Count('upVotes')).order_by('-q_count', '-avgRating', 'dateCreated')
-    # except:
-    #     bookList = []
+
+    if request.method == "POST":
+        try:
+            group = gMod.Group.objects.get(id = request.POST.get('group'))
+            if group.currentBook != None:
+                group.readBookList.add(bMod.Books.objects.get(id=group.currentBook.id))
+            
+            group.bookList.remove(bMod.Books.objects.get(id=request.POST.get('book')))
+            group.currentBookDeadline = request.POST.get('deadline')
+            group.currentBook = bMod.Books.objects.get(id=request.POST.get('book'))
+            group.save()
+
+            # return HttpResponseRedirect('/books/bookvote/' + request.POST.get('group'))
+
+        except:
+            pass
+
 
     context = {
         'bookDict': bookDict,
