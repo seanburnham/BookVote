@@ -34,19 +34,19 @@ def process_request(request):
             group.currentBook = bMod.Books.objects.get(id=request.POST.get('book'))
             group.save()
 
-            subject = 'New Book to Read for ' + group.name
-            message = group.currentBook.title + ' has been selected as the new book to read as a group. The deadline for this book has been set to ' + group.currentBookDeadline
-            email_from = settings.EMAIL_HOST_USER
-            # recipient_list = ['seanburnham92@yahoo.com',]
+            # subject = 'New Book to Read for ' + group.name
+            # message = group.currentBook.title + ' has been selected as the new book to read as a group. The deadline for this book has been set to ' + group.currentBookDeadline
+            # email_from = settings.EMAIL_HOST_USER
+            # # recipient_list = ['seanburnham92@yahoo.com',]
 
-            datatuple = ()
+            # datatuple = ()
 
-            for u in group.users.all():
-                datatuple += (subject, message, email_from, [u.email])
+            # for u in group.users.all():
+            #     datatuple += (subject, message, email_from, [u.email])
 
-            print('-=--=-=-=-=-=-=-=-=-=-=',datatuple)
+            # print('-=--=-=-=-=-=-=-=-=-=-=',datatuple)
 
-            send_mass_mail(datatuple)
+            # send_mass_mail(datatuple)
             # send_mail( subject, message, email_from, recipient_list )
 
             # return HttpResponseRedirect('/books/bookvote/' + request.POST.get('group'))
