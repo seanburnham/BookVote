@@ -29,16 +29,6 @@ class CreateForm(Formless):
         self.fields['name'] = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Group Name'}))
         self.fields['description'] = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder': 'Description'}), required=False)
         self.fields['is_private'] = forms.BooleanField(label='Private Group', initial=True, required=False)
-        self.fields['passphrase'] = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'Passphrase'}))
-
-    def clean_passphrase(self):
-        if self.cleaned_data.get('is_private') == True:
-            if self.cleaned_data.get('passphrase') is None:
-                 raise forms.ValidationError('Please enter a passphrase or deselect the private group box.')
-            else:
-                return self.cleaned_data.get('passphrase')
-        else:
-            pass
 
     def clean(self):
         try:
@@ -53,7 +43,6 @@ class CreateForm(Formless):
         g.name = self.cleaned_data.get('name')
         g.description = self.cleaned_data.get('description')
         g.is_private = self.cleaned_data.get('is_private')
-        g.passphrase = self.cleaned_data.get('passphrase')
         g.save()
         
         g.users.add(self.request.user)
