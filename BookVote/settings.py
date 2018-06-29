@@ -91,28 +91,35 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'BookVote.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
 
 # Database
 SECRET_KEY = config('SECRET_KEY')
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-        )
-}
-
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-# DEBUG = True
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'SeanBurnham',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#         )
 # }
+
+# DEBUG = config('DEBUG', default=False, cast=bool)
+
+DEBUG = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'SeanBurnham',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation

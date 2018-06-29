@@ -21,7 +21,7 @@
                             </div>
                             <div class="ratingInfo" class="text-center">
                                 %if currentBook.avgRating:
-                                    <h6 class="ratingText">Avg Rating - ${currentBook.avgRating}/5.0</h6>
+                                    <h6 class="ratingText">Goodreads Rating - ${currentBook.avgRating}/5.0</h6>
                                 %endif
                                 %if currentBook.pageCount:
                                     <h6 class="pageText">Page Count - ${currentBook.pageCount}</h6>
@@ -64,7 +64,7 @@
                                                 %endif
                                                 %if request.user in group.admin_users.all():
                                                     %if u != request.user:
-                                                        <button class="btn btn-danger" data-user="${u.id}" id="removeUserBtn" style="font-size: 12px; margin-left: 5px;">x</button>
+                                                        <button class="btn btn-danger" data-toggle="tooltip" data-html="true" title="<em>Remove User</em>" data-user="${u.id}" id="removeUserBtn" style="font-size: 12px; margin-left: 5px;">x</button>
                                                     %endif
                                                 %endif
                                             </div>
@@ -132,7 +132,7 @@
                             </div>
                             <div class="ratingInfo" class="text-center">
                                 %if bookList[0].avgRating:
-                                    <h6 class="ratingText">Avg Rating - ${bookList[0].avgRating}/5.0</h6>
+                                    <h6 class="ratingText">Goodreads Rating - ${bookList[0].avgRating}/5.0</h6>
                                 %endif
                                 %if bookList[0].pageCount:
                                     <h6 class="pageText">Page Count - ${bookList[0].pageCount}</h6>

@@ -21,7 +21,7 @@
                         </div>
                         <div id="ratingInfo" class="text-center">
                             %if bookDict[group][0].avgRating:
-                                <h6 id="ratingText">Avg Rating - ${bookDict[group][0].avgRating}/5.0</h6>
+                                <h6 id="ratingText">Goodreads Rating - ${bookDict[group][0].avgRating}/5.0</h6>
                             %endif
                             %if bookDict[group][0].pageCount:
                                 <h6 id="pageText">Page Count - ${bookDict[group][0].pageCount}</h6>
@@ -45,7 +45,7 @@
                                 <div class="titleDiv align-middle"> 
                                     <p style="margin-bottom: 0;">${b.title} - ${b.author}</p> 
                                     %if b.avgRating:
-                                        <h6 class="listRating">Avg Rating - ${b.avgRating}/5.0</h6>
+                                        <h6 class="listRating">Goodreads Rating - ${b.avgRating}/5.0</h6>
                                     %endif
                                     %if b.pageCount:
                                         <h6 class="listRating">Page Count - ${b.pageCount}</h6>

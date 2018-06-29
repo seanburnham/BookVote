@@ -50,6 +50,10 @@ def addToList(request, groupID, isbn):
     
     try:
         book = bMod.Books.objects.get(isbn = isbn)
+
+        group = gMod.Group.objects.get(id=groupID)
+        group.bookList.add(book)    
+    
     except:
 
         #Grab data from Goodreads API

@@ -13,10 +13,11 @@ $(function(){
     $(document).on('click', '#deadlineBtn', function (evt){
 
         var deadline = $( "input[type=date][name=deadline]" ).val();
+
+        //Need to check to make sure date selected is in the future
+
         var group = groupID;
         var book = bookID;
-
-        console.log(deadline, group, book)
 
         var csrftoken = Cookies.get('csrftoken');
         $.ajax({

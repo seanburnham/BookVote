@@ -1,5 +1,7 @@
 $(function(){
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     $(document).on('click', '#removeUserBtn', function(evt){
         
         $('#groupMembers').load('/books/bookvote.removeGroupMember/' + $('#groupGreeting').data('group') + '/' + $(this).data('user') + '/');
