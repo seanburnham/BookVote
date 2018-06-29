@@ -2,6 +2,13 @@
 
 <%block name="content">
     <div class="content">
+        <div class="row justify-content-center">
+            <div class="alert alert-success alert-dismissable text-center" style="width:400px; margin-bottom: 50px; margin-top: -40px; display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Your request to join has been sent.
+            </div>
+        </div>
+        
         <div id="selectGroup">
             %if userGroups:
                 <div class="col d-flex justify-content-center">
@@ -49,9 +56,13 @@
                     <div id="gridContainer">
                         %for g in groups:
                             <div class="form-check text-left">
-                                <input class="form-check-input" type="radio" name="groupListBtn" id="${g.name}" value="${g.id}">
+                                <input class="form-check-input" type="radio" name="groupListBtn" id="${g.name}" value="${g.id}" data-group="${g.is_private}">
                                 <label class="form-check-label" for="${g.name}">
-                                    ${g.name}
+                                    %if g.is_private:
+                                        ${g.name} (Private Group)
+                                    %else:
+                                        ${g.name}
+                                    %endif
                                 </label>
                             </div>
                         %endfor

@@ -7,6 +7,19 @@ $(function(){
         
     });
 
+    $(document).on('click', '#acceptBtn', function(evt){
+        
+        $('#memberStuff').load('/books/bookvote.pendingApproval/' + $('#groupGreeting').data('group') + '/' + $(this).data('user') + '/' + $(this).data('id') + '/');
+        evt.preventDefault();
+        
+    });
+
+    $(document).on('click', '#rejectBtn', function(evt){
+        
+        $('#memberStuff').load('/books/bookvote.pendingApproval/' + $('#groupGreeting').data('group') + '/' + $(this).data('user') + '/' + $(this).data('id') + '/');
+        evt.preventDefault();
+        
+    });
 
     $(document).on('click', '#upVote', function (evt){
 

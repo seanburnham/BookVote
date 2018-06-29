@@ -1,0 +1,53 @@
+<div class="card text-center" style="margin-top: 35px; margin-left: 20px; margin-right: 20px; width: 430px;">
+    <div class="card-header">
+        ${group.name} members:
+    </div>
+    <div id="groupMembers">
+        <ul class="list-group list-group-flush text-left">
+            <%! from datetime import datetime, timezone %>
+            %for u in group.users.all():
+                <li class="list-group-item">
+                    <div>
+                        <p style="display: inline-block;">${u.first_name} ${u.last_name} - ${u.username}</p>
+                        <div style="float: right;">
+                            %if u.last_active:
+                                %if ((datetime.now(timezone.utc) - u.last_active).seconds//60)%60 == 0:
+                                    <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: now</p>
+                                %elif (datetime.now(timezone.utc) - u.last_active).days == 0:
+                                    <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: ${((datetime.now(timezone.utc) - u.last_active).seconds//60)%60} minutes</p>
+                                %else:
+                                    <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: ${(datetime.now(timezone.utc) - u.last_active).days} days</p>
+                                %endif
+                            %endif
+                            %if request.user in group.admin_users.all():
+                                %if u != request.user:
+                                    <button class="btn btn-danger" data-user="${u.id}" id="removeUserBtn" style="font-size: 12px; margin-left: 5px;">x</button>
+                                %endif
+                            %endif
+                        </div>
+                    </div>
+                </li>
+            %endfor
+        </ul>
+    </div>
+</div>
+%if group.pendingApprovals.all():
+    <div class="card text-center" style="margin-top: 35px; margin-left: 20px; margin-right: 20px; width: 430px;">
+        <div class="card-header">
+            Member requests:
+        </div>
+        <div id="memberRequests">
+            <ul class="list-group list-group-flush text-left">
+                %for u in group.pendingApprovals.all():
+                    <li class="list-group-item">
+                        <div>
+                            <p style="display: inline-block;">${u.first_name} ${u.last_name} - ${u.username}</p>
+                            <button id="acceptBtn" class="btn btn-success" data-user="${u.id}" data-id="accept" style="display: inline-block; font-size: 12px; margin-left: 5px;">Accept</button>
+                            <button id="rejectBtn" class="btn btn-danger" data-user="${u.id}" data-id="reject" style="display: inline-block; font-size: 12px;">Reject</button>
+                        </div>
+                    </li>
+                %endfor
+            </ul>
+        </div>
+    </div>
+%endif

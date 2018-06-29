@@ -1,10 +1,21 @@
 function addGroup() {
 
-    // alert($('input[name=groupListBtn]:checked').val())
+    // alert($('input[name=groupListBtn]:checked').data('group'))
+
+    if($('input[name=groupListBtn]:checked').data('group') == "True"){
+        $('#groupListModal').modal('hide');
+        $('#selectGroup').load('/homepage/index.addGroup/' + $('input[name=groupListBtn]:checked').val());
+        $('.alert-success').fadeIn()
+        setTimeout(function() {
+            $('.alert-success').fadeOut(); 
+        }, 4000);
+    }
+    else{
+        $('#groupListModal').modal('hide');
+        $('#selectGroup').load('/homepage/index.addGroup/' + $('input[name=groupListBtn]:checked').val());
+    }
 
     
-    $('#groupListModal').modal('hide');
-    $('#selectGroup').load('/homepage/index.addGroup/' + $('input[name=groupListBtn]:checked').val());
     
 }
 

@@ -157,3 +157,28 @@ def removeGroupMember(request, groupID, userID):
         'group':group,
     }
     return request.dmp.render('bookvote.removeGroupMember.html', context)
+
+
+@view_function
+@login_required
+def pendingApproval(request, groupID, userID, approvalStatus):
+
+    group = gMod.Group.objects.get(id = groupID)
+    user = uMod.User.objects.get(id=userID)
+
+    if request.user in group.admin_users.all():
+        if approvalStatus == 'accept':
+            group.users.add(user)
+            group.pendingApprovals.remove(user)
+        elif approvalStatus == 'reject':
+            group.pendingApprovals.remove(user)
+        else:
+            pass
+
+
+    context = {
+        'group':group,
+    }
+    return request.dmp.render('bookvote.pendingApproval.html', context)
+
+    

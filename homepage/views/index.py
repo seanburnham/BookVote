@@ -27,7 +27,13 @@ def addGroup(request, groupID):
 
     try:
         group = gMod.Group.objects.get(id = groupID)
-        group.users.add(request.user)
+        if group.is_private:
+            if request.user in group.pendingApprovals.all():
+                pass
+            else:
+                group.pendingApprovals.add(request.user)
+        else:
+            group.users.add(request.user)
     except:
         pass
 
