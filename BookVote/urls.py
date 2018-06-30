@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from books import views
 
 urlpatterns = [
     # the built-in Django administrator
@@ -26,3 +25,6 @@ urlpatterns = [
     # the DMP router - this should normally be the last URL listed
     url('', include('django_mako_plus.urls')),
 ]
+
+handler404 = 'homepage.views.errors.not_found'
+handler500 = 'homepage.views.errors.server_error'

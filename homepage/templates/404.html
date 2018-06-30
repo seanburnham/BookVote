@@ -1,0 +1,28 @@
+<%inherit file="base.htm" />
+
+<%block name="headerContent">
+</%block>
+
+<%block name="content">
+    <!--start-wrap-->
+		<div class="wrap">
+            <!---start-header-->
+                <div class="header">
+                    <div class="logo">
+                        <h1><a href="#">Oops!</a></h1>
+                    </div>
+                </div>
+            <!---End-header-->
+            <!--start-content-->
+            <div class="content">
+                <img src="${ STATIC_URL }homepage/media/error-img.png" title="error" alt="error" />
+                <p><span><label>O</label>hh.....</span> Either we messed something up or you typed something wrong!</p>
+                <a href="/">Back To Home</a>
+                <div class="copy-right">
+                    <p>&copy; 2013 Ohh. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3Layouts</a></p>
+                </div>
+                </div>
+            <!--End-Cotent-->
+        </div>
+        <!--End-wrap-->
+</%block>

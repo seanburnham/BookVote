@@ -13,29 +13,39 @@ $(function(){
     $(document).on('click', '#deadlineBtn', function (evt){
 
         var deadline = $( "input[type=date][name=deadline]" ).val();
-        var group = groupID;
-        var book = bookID;
 
-        console.log(deadline, group, book)
+        ///Check to make sure date selected is in the future
+        var dt = new Date(deadline)
+        var today = new Date()
 
-        var csrftoken = Cookies.get('csrftoken');
-        $.ajax({
-            type: 'POST',
-            url: '',
-            data: {
-                deadline: deadline,
-                group: group,
-                book: book,
-                csrfmiddlewaretoken: csrftoken,
-            },
-            cache: false,
-            traditional: true,
-            success: function(response){
-                console.log('Success');
-                $('#deadlinePicker').modal('hide');
-                window.location.replace("https://bookvotingapp.herokuapp.com/books/bookvote/" + groupID);
-            },
-        });
+        if(dt > today){
+            var group = groupID;
+            var book = bookID;
+    
+            var csrftoken = Cookies.get('csrftoken');
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data: {
+                    deadline: deadline,
+                    group: group,
+                    book: book,
+                    csrfmiddlewaretoken: csrftoken,
+                },
+                cache: false,
+                traditional: true,
+                success: function(response){
+                    console.log('Success');
+                    $('#deadlinePicker').modal('hide');
+                    window.location.replace("https://bookvotingapp.herokuapp.com/books/bookvote/" + groupID);
+                },
+            });
+        }
+        else{
+            alert('Please select a deadline in the future.')
+        }
+
+        
     });
 });
 

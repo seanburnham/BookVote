@@ -1,5 +1,7 @@
 $(function(){
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     $(document).on('click', '#removeUserBtn', function(evt){
         
         $('#groupMembers').load('/books/bookvote.removeGroupMember/' + $('#groupGreeting').data('group') + '/' + $(this).data('user') + '/');
@@ -37,6 +39,11 @@ $(function(){
 
 
     $(document).on('click', '.btn-warning', function (evt){
+
+
+        //This isn't catching errors correctly and needs to be fixed. 
+        //Also there needs to be an alert that is triggered when someone 
+        //   tries to add a book they have already added or voted on for that group.
 
         try {
             $('#bookStuff').load('/books/bookvote.addToList/' + $(this).data('group')+ '/' + $(this).data('id')  + '/');

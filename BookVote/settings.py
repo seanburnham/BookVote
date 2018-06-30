@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
+ADMINS = [('Sean', config('EMAIL_HOST_USER'))]
 
 ALLOWED_HOSTS = ['localhost','bookvotingapp.herokuapp.com']
 
@@ -101,25 +101,25 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # Database
 SECRET_KEY = config('SECRET_KEY')
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-        )
-}
-
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-# DEBUG = True
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'SeanBurnham',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#         )
 # }
+
+# DEBUG = config('DEBUG', default=False, cast=bool)
+
+DEBUG = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'SeanBurnham',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
