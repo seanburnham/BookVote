@@ -26,5 +26,5 @@ urlpatterns = [
     url('', include('django_mako_plus.urls')),
 ]
 
-handler404 = 'homepage.views.errors.not_found'
-handler500 = 'homepage.views.errors.server_error'
+# handler404 = 'homepage.views.errors.not_found'
+# handler500 = 'homepage.views.errors.server_error'
