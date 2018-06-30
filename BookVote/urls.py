@@ -25,6 +25,3 @@ urlpatterns = [
     # the DMP router - this should normally be the last URL listed
     url('', include('django_mako_plus.urls')),
 ]
-
-handler404 = 'homepage.views.errors.not_found'
-handler500 = 'homepage.views.errors.server_error'
