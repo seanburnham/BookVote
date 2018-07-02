@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 
 import json
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 import sys
 
 from django.views.decorators.csrf import csrf_protect
@@ -22,25 +23,28 @@ def process_request(request, groupID):
 
     group = gMod.Group.objects.get(id = groupID)
 
-    try:
-        books = group.bookList.all()
-        bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
-    except:
-        bookList = []
+    if request.user in group.users.all():
+        try:
+            books = group.bookList.all()
+            bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
+        except:
+            bookList = []
 
-    try:
-        currentBook = bMod.Books.objects.get(id=group.currentBook.id)
-    except:
-        currentBook = None
+        try:
+            currentBook = bMod.Books.objects.get(id=group.currentBook.id)
+        except:
+            currentBook = None
 
 
-    context = {
-        'bookList': bookList,
-        'group': group,
-        'currentBook': currentBook,
-    }
+        context = {
+            'bookList': bookList,
+            'group': group,
+            'currentBook': currentBook,
+        }
 
-    return request.dmp.render('bookvote.html', context)
+        return request.dmp.render('bookvote.html', context)
+    else:
+        return HttpResponseRedirect('/')
 
 
 @view_function

@@ -9,3 +9,7 @@ class User(AbstractUser):
     activatedAccount = models.BooleanField(default=False)
     dateCreated = models.DateTimeField(auto_now_add=True, null=True)
     last_active = models.DateTimeField(null=True)
+    goodreadsAccount = models.TextField(null=True)
+    facebookAccount = models.TextField(null=True)
+    googleAccount = models.TextField(null=True)
+    twitterAccount = models.TextField(null=True)

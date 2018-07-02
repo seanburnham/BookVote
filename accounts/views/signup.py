@@ -42,7 +42,7 @@ class Signup(Formless):
         chars = ('0123456789 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         for char in username:
             if char not in chars:
-                raise forms.ValidationError('Usernames may only inlcude alphanumeric characters, numbers, and spaces.')
+                raise forms.ValidationError('Usernames may only include alphanumeric characters, numbers, and spaces.')
             
         return username
 

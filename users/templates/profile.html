@@ -1,0 +1,59 @@
+<%inherit file="homepage/templates/base.htm" />
+
+
+<%block name="headerContent">
+
+</%block>
+
+<%block name="content">
+                       
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: -20px;">
+        <div class="col-md-4" style="margin-top: 5px;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h3 class="card-title">Hello ${request.user.username}</h3>
+                    </div>
+                </div>
+                <ul style="list-style: none;">
+                    <li class="profileInfo">First Name: ${request.user.first_name}</li>
+                    <li class="profileInfo">Last Name: ${request.user.last_name}</li>
+                    <li class="profileInfo">Email: ${request.user.email}</li>
+                    <li class="profileInfo">City: ${request.user.city}</li>
+                    <li class="profileInfo">State: ${request.user.state}</li>
+                    <li class="profileInfo">Country: ${request.user.country}</li>
+                    <li class="profileInfo">Goodreads: ${request.user.goodreadsAccount}</li>
+                    <li class="profileInfo">Facebook: ${request.user.facebookAccount}</li>
+                    <li class="profileInfo">Google: ${request.user.googleAccount}</li>
+                    <li class="profileInfo">Twitter: ${request.user.twitterAccount}</li>
+                </ul>
+                <div class="card-body text-right">
+                    <a href="/users/profileEdit/" class="btn btn-warning">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="margin-top: 5px;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <ul>
+                    <li>Cras justo odio</li>
+                    <li>Dapibus ac facilisis in</li>
+                    <li>Vestibulum at eros</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row.// -->
+</div>
+<!--container end.//-->
+
+
+</%block>
