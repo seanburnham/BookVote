@@ -1,0 +1,16 @@
+<ul class="list-group list-group-flush" style="max-height: 160px; overflow: scroll;">
+    %for g in request.user.users.all():
+        <li class="list-group-item">
+            <div style="display: inline-block;">
+                ${g.name}
+            </div>
+            <div style="display: inline-block; float: right;">
+                %if request.user in g.admin_users.all():
+                    <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="True" data-toggle="tooltip" title="Leave Group" style="font-size: 12px;">x</button>
+                %else:
+                    <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="False" data-toggle="tooltip" title="Leave Group" style="font-size: 12px;">x</button>
+                %endif
+            </div>
+        </li>
+    %endfor
+</ul>

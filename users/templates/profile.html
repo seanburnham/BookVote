@@ -6,7 +6,12 @@
 </%block>
 
 <%block name="content">
-                       
+<div class="row justify-content-center" style="margin-top: -40px;">   
+    <div class="alert alert-danger alert-dismissable text-center" style="width: 450px; margin-bottom: 20px; display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        You are the only admin of that group. Please select another admin before leaving! 
+    </div>
+</div>
 <div class="container">
     <div class="row justify-content-center" style="margin-top: -20px;">
         <div class="col-md-4" style="margin-top: 5px;">
@@ -33,21 +38,53 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6" style="margin-top: 5px;">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div class="col-md-5" style="margin-top: 5px;">
+            <div class="card" >
+                <div class="card-header">
+                    Current Groups
                 </div>
-                <ul>
-                    <li>Cras justo odio</li>
-                    <li>Dapibus ac facilisis in</li>
-                    <li>Vestibulum at eros</li>
+                <div id="currentGroups">
+                    <ul class="list-group list-group-flush" style="max-height: 160px; overflow: scroll;">
+                        %for g in request.user.users.all():
+                            <li class="list-group-item">
+                                <div style="display: inline-block;">
+                                    ${g.name}
+                                </div>
+                                <div style="display: inline-block; float: right;">
+                                    %if request.user in g.admin_users.all() and g.admin_users.all().count() == 1:
+                                        <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="True" data-toggle="tooltip" title="Leave Group" style="font-size: 12px;">x</button>
+                                    %else:
+                                        <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="False" data-toggle="tooltip" title="Leave Group" style="font-size: 12px;">x</button>
+                                    %endif
+                                </div>
+                            </li>
+                        %endfor
+                    </ul>
+                </div>
+            </div>
+            <div class="card"  style = "margin-top: 10px;">
+                <div class="card-header">
+                    Books You Liked
+                </div>
+                <ul class="list-group list-group-flush" style="border-top: 1px solid rgba(0,0,0,.125); max-height: 200px; overflow: scroll;">
+                    %for b in request.user.upVotes.all():
+                        <li class="list-group-item list-group-item"> 
+                            <img src="${b.image}">
+                            <div class="titleDiv align-middle"> 
+                                <p style="margin-bottom: 0;">${b.title} - ${b.author}</p> 
+                                %if b.avgRating:
+                                    <h6 class="listRating">Goodreads Rating - ${b.avgRating}/5.0</h6>
+                                %endif
+                                %if b.pageCount:
+                                    <h6 class="listRating">Page Count - ${b.pageCount}</h6>
+                                %endif
+                            </div>
+                            <div style="display: inline-block; float: right;">
+                                <a class="btn btn-warning" target="_blank" href="https://www.goodreads.com/book/isbn/${b.isbn}" style="font-size: 12px;">Goodreads Link</a>
+                            </div>
+                        </li>
+                    %endfor
                 </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
             </div>
         </div>
     </div>

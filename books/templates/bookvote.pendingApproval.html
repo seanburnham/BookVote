@@ -1,6 +1,13 @@
 <div class="card text-center" style="margin-top: 35px; margin-left: 20px; margin-right: 20px; width: 430px;">
     <div class="card-header">
-        ${group.name} members:
+        <div style="display: inline-block;">
+            ${group.name} members:
+        </div>
+        <div style="display: inline-block; float: right;">
+            %if request.user in group.admin_users.all():
+                <button class="btn btn-success" data-toggle="modal" data-target="#newAdminModal" style="font-size: 12px;">Add Admin</button>
+            %endif
+        </div>
     </div>
     <div id="groupMembers">
         <ul class="list-group list-group-flush text-left">

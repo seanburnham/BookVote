@@ -1,3 +1,39 @@
 .profileInfo{
     margin-top: 5px;
 }
+
+.list-group-item {
+    float: left;
+}
+
+.list-group-item img{
+    max-height: 50px;
+}
+
+
+.list-group-item h4, h5, img {
+    display: inline-block;
+}
+
+.titleDiv{
+    margin-left: 20px;
+    display: inline-block;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#ratingText{
+    margin-top: 10px; 
+    margin-bottom: 0; 
+    margin-right: 5px; 
+    display: inline-block;
+    color: darkred;
+}
+
+.listRating{
+    margin: 0;
+    display: inline-block;
+    color: darkred;
+    font-size: 10px;
+}

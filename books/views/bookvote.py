@@ -156,9 +156,12 @@ def downVote(request, groupID, bookID):
 def removeGroupMember(request, groupID, userID):
 
     group = gMod.Group.objects.get(id = groupID)
+    user = uMod.User.objects.get(id=userID)
 
     if request.user in group.admin_users.all():
-        group.users.remove(uMod.User.objects.get(id=userID))
+        group.users.remove(user)
+        if user in group.admin_users.all():
+            group.admin_users.remove(user)
 
 
     context = {
@@ -180,6 +183,26 @@ def pendingApproval(request, groupID, userID, approvalStatus):
             group.pendingApprovals.remove(user)
         elif approvalStatus == 'reject':
             group.pendingApprovals.remove(user)
+        else:
+            pass
+
+
+    context = {
+        'group':group,
+    }
+    return request.dmp.render('bookvote.pendingApproval.html', context)
+
+    
+@view_function
+@login_required
+def addAdminUser(request, groupID, userID):
+
+    group = gMod.Group.objects.get(id = groupID)
+    user = uMod.User.objects.get(id=userID)
+
+    if request.user in group.admin_users.all():
+        if user not in group.admin_users.all():
+            group.admin_users.add(user)
         else:
             pass
 

@@ -37,6 +37,21 @@ $(function(){
 
     });
 
+    $(document).on('click', '#addAdminBtn', function (evt){
+
+        userID = $('input[name=userListBtn]:checked').val();
+        
+        if (userID){
+            $('#newAdminModal').modal('hide');
+
+            $('#memberStuff').load('/books/bookvote.addAdminUser/' + $('#groupGreeting').data('group') + '/' + userID + '/');
+            evt.preventDefault();
+        }
+
+        
+
+    });
+
 
     $(document).on('click', '.btn-warning', function (evt){
 

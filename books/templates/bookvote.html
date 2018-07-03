@@ -42,8 +42,15 @@
                 </div>
                 <div id="memberStuff">
                     <div class="card text-center" style="margin-top: 35px; margin-left: 20px; margin-right: 20px; width: 430px;">
-                        <div class="card-header">
-                            ${group.name} members:
+                        <div class="card-header text-left">
+                            <div style="display: inline-block;">
+                                ${group.name} members:
+                            </div>
+                            <div style="display: inline-block; float: right;">
+                                %if request.user in group.admin_users.all():
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#newAdminModal" style="font-size: 12px;">Add Admin</button>
+                                %endif
+                            </div>
                         </div>
                         <div id="groupMembers">
                             <ul class="list-group list-group-flush text-left">
@@ -57,7 +64,11 @@
                                                     %if ((datetime.now(timezone.utc) - u.last_active).seconds//60)%60 == 0:
                                                         <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: now</p>
                                                     %elif (datetime.now(timezone.utc) - u.last_active).days == 0:
-                                                        <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: ${((datetime.now(timezone.utc) - u.last_active).seconds//60)%60} minutes</p>
+                                                        %if (datetime.now(timezone.utc) - u.last_active).seconds/3600 >= 1:
+                                                            <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: ${round(((datetime.now(timezone.utc) - u.last_active).seconds/3600))} hours</p>
+                                                        %else:
+                                                            <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: ${((datetime.now(timezone.utc) - u.last_active).seconds//60)%60} minutes</p>
+                                                        %endif
                                                     %else:
                                                         <p style="display: inline-block; font-size:12px; color:darkred;">Last Active: ${(datetime.now(timezone.utc) - u.last_active).days} days</p>
                                                     %endif
@@ -160,6 +171,42 @@
             </div>
         </div>
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="newAdminModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Select a New Admin User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="search text-center">
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search group members.." title="Type in a tag">
+                    <input title="Search" value="" type="submit" class="searchbutton">
+                </div>
+                <div id="gridContainer">
+                    %for u in group.users.all():
+                        %if u not in group.admin_users.all():    
+                            <div class="form-check text-left">
+                                <input class="form-check-input" type="radio" name="userListBtn" id="${u.username}" value="${u.id}">
+                                <label class="form-check-label" for="${u.username}">
+                                    ${u.first_name} ${u.last_name} - ${u.username} 
+                                </label>
+                            </div>
+                        %endif
+                    %endfor
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="addAdminBtn" type="button" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
