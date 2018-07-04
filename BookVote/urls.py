@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # urls for any third-party apps go here
-
+    url('^api/v1/', include('social_django.urls', namespace='social')),
     # the DMP router - this should normally be the last URL listed
     url('', include('django_mako_plus.urls')),
 ]

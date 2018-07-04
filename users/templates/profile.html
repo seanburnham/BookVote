@@ -28,10 +28,8 @@
                     <li class="profileInfo">City: ${request.user.city}</li>
                     <li class="profileInfo">State: ${request.user.state}</li>
                     <li class="profileInfo">Country: ${request.user.country}</li>
-                    <li class="profileInfo">Goodreads: ${request.user.goodreadsAccount}</li>
-                    <li class="profileInfo">Facebook: ${request.user.facebookAccount}</li>
-                    <li class="profileInfo">Google: ${request.user.googleAccount}</li>
-                    <li class="profileInfo">Twitter: ${request.user.twitterAccount}</li>
+                    <li class="profileInfo">Goodreads: <a href="${request.user.goodreadsAccount}">${request.user.goodreadsAccount}</a></li>
+                    <li class="profileInfo">Facebook: <a href="${request.user.facebookAccount}">${request.user.facebookAccount}</a></li>
                 </ul>
                 <div class="card-body text-right">
                     <a href="/users/profileEdit/" class="btn btn-warning">Edit Profile</a>

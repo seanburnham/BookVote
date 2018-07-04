@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_mako_plus',
+    'social_django',
     'homepage',
     'accounts',
     'users',
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
     'users.middleware.SetLastVisitMiddleware',
 ]
 
@@ -84,6 +86,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends', # this
+                'social_django.context_processors.login_redirect', # and this
             ],
         },
     },
@@ -92,13 +96,39 @@ TEMPLATES = [
 WSGI_APPLICATION = 'BookVote.wsgi.application'
 
 
+# Format for OAuth providers
+# SOCIAL_AUTH_<provider name>_KEY = <client ID>
+# SOCIAL_AUTH_<provider name>_SECRET = <client secret>
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+SOCIAL_AUTH_TWITTER_KEY = config('SOCIAL_AUTH_TWITTER_KEY')
+SOCIAL_AUTH_TWITTER_SECRET = config('SOCIAL_AUTH_TWITTER_SECRET')
+
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = [
+    'email',
+]
+
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email'
+}
+
+SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY')  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET')  # App Secret
+
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+
 AUTHENTICATION_BACKENDS = (
-    # 'social_core.backends.github.GithubOAuth2',
-    # 'social_core.backends.twitter.TwitterOAuth',
-    # 'social_core.backends.facebook.FacebookOAuth2',
-
     # 'rest_framework_social_oauth2.backends.DjangoOAuth2',
-
+    # 'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
     'accounts.backend.EmailOrUsernameModelBackend', #Custom backend auth for allowing either username or email to login
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -115,25 +145,25 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # Database
 SECRET_KEY = config('SECRET_KEY')
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-        )
-}
-
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-# DEBUG = True
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'SeanBurnham',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#         )
 # }
+
+# DEBUG = config('DEBUG', default=False, cast=bool)
+
+DEBUG = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'SeanBurnham',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
