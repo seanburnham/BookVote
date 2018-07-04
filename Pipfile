@@ -13,6 +13,7 @@ django-mako-plus = "*"
 python-decouple = "*"
 requests = "*"
 xmltodict = "*"
+social-auth-app-django = "*"
 
 [requires]
 
