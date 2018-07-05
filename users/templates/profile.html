@@ -50,9 +50,9 @@
                                 </div>
                                 <div style="display: inline-block; float: right;">
                                     %if request.user in g.admin_users.all() and g.admin_users.all().count() == 1:
-                                        <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="True" data-toggle="tooltip" title="Leave Group" style="font-size: 12px;">x</button>
+                                        <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="True" title="Leave Group" style="font-size: 12px;">x</button>
                                     %else:
-                                        <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="False" data-toggle="tooltip" title="Leave Group" style="font-size: 12px;">x</button>
+                                        <button id="leaveGroupBtn" class="btn btn-danger" data-group="${g.id}" data-admin="False" title="Leave Group" style="font-size: 12px;">x</button>
                                     %endif
                                 </div>
                             </li>
