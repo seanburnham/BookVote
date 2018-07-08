@@ -8,15 +8,15 @@ from groups import models as gMod
 @login_required
 def process_request(request):
     
-    try:
-        userGroups = gMod.Group.objects.filter(users__id__contains = request.user.id)
-    except:
-        userGroups = []
+    # try:
+    #     userGroups = gMod.Group.objects.filter(users__id__contains = request.user.id)
+    # except:
+    #     userGroups = []
 
     groups = gMod.Group.objects.exclude(users__id__contains = request.user.id)
 
     context = {
-        'userGroups': userGroups,
+        # 'userGroups': userGroups,
         'groups':groups,
     }
     return request.dmp.render('index.html', context)

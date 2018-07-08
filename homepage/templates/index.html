@@ -10,14 +10,14 @@
         </div>
         
         <div id="selectGroup">
-            %if userGroups:
+            %if request.user.users.all().count() > 0:
                 <div class="col d-flex justify-content-center">
                     <div class="card text-left" style="margin-top: -40px; margin-bottom: 20px; min-width: 300px; max-width: 500px; box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);">
                         <div class="card-header text-center">
                             Select a Group:
                         </div>
                         <div class="list-group">
-                            %for g in userGroups:
+                            %for g in request.user.users.all():
                                 <a href="books/bookvote/${g.id}" class="list-group-item list-group-item-action">${g.name} - ${g.users.count()} members</a>
                             %endfor
                         </div>
