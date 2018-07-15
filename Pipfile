@@ -14,6 +14,7 @@ python-decouple = "*"
 requests = "*"
 xmltodict = "*"
 social-auth-app-django = "*"
+sendgrid = "*"
 
 [requires]
 

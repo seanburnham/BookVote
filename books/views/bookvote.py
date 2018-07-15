@@ -59,7 +59,7 @@ def addToList(request, groupID, isbn):
         group.bookList.add(book)    
     
     except:
-
+        # "9781683690405"
         #Grab data from Goodreads API
         goodReadsKey = "Te7ahdToiP8n7iV3Lpgw6g"
         response = requests.get("https://www.goodreads.com/search.xml?key=" + goodReadsKey + "&q=" + isbn)
