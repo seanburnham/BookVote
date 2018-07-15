@@ -13,6 +13,7 @@ class User(AbstractUser):
     facebookAccount = models.TextField(null=True)
     googleAccount = models.TextField(null=True)
     twitterAccount = models.TextField(null=True)
+    emailNotifications = models.BooleanField(default=True)
 
 class ResetPasswordTokens(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)

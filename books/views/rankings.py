@@ -9,6 +9,7 @@ from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.core.mail import send_mail, send_mass_mail, EmailMultiAlternatives, get_connection
+from urllib.parse import urlsplit
 
 @view_function
 @login_required
@@ -34,18 +35,22 @@ def process_request(request):
         group.currentBook = bMod.Books.objects.get(id=request.POST.get('book'))
         group.save()
 
+        url = request.build_absolute_uri()
+        base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(url))
+
 
         connection = get_connection() # uses SMTP server specified in settings.py
         connection.open() # If you don't open the connection manually, Django will automatically open, then tear down the connection in msg.send()
         messages = []
         subject = 'New Book to Read for ' + group.name
         text_content = '...'
-        html_content = '<p><a href="https://www.goodreads.com/book/isbn/' + group.currentBook.isbn + '">' + group.currentBook.title + '</a> by ' + group.currentBook.author + ' has been selected as the new book to read as a group.</p>' + '\n\n'  + '<p>The deadline for this book has been set to ' + str(group.currentBookDeadline) + '</p>'  
+        html_content = '<p><a href="https://www.goodreads.com/book/isbn/' + group.currentBook.isbn + '">' + group.currentBook.title + '</a> by ' + group.currentBook.author + ' has been selected as the new book to read as a group.</p>' + '\n\n'  + '<p>The deadline for this book has been set to ' + str(group.currentBookDeadline) + '</p>' + '\n\n\n'  + '<p><a href="' + base_url + "users/profile/" + '">Opt out of future emails</a></p>' 
 
         for u in group.users.all():
-            message = EmailMultiAlternatives(subject, text_content,  settings.EMAIL_HOST_USER, [u.email,])
-            message.attach_alternative(html_content, 'text/html')
-            messages.append(message)  
+            if u.emailNotifications == True:
+                message = EmailMultiAlternatives(subject, text_content,  settings.EMAIL_HOST_USER, [u.email,])
+                message.attach_alternative(html_content, 'text/html')
+                messages.append(message)  
         
         connection.send_messages(messages)
 

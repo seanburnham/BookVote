@@ -18,7 +18,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="text-center">
-                        <h3 class="card-title">Hello ${request.user.username}</h3>
+                        <h3 class="card-title" style="display: inline">Hello ${request.user.username}</h3>
+                        <span style="display: inline; float: right;"><a id="settings" href="" data-toggle="modal" data-target="#settingsModal"><i class="fa fa-cog"></i></a></span>
                     </div>
                 </div>
                 <ul style="list-style: none;">
@@ -89,6 +90,39 @@
     <!-- row.// -->
 </div>
 <!--container end.//-->
+
+<!-- Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modalLabel">Settings:</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5>Email Notifications:</h5>
+            ${ csrf_input }
+            <form>
+                <div class="form-check">
+                    %if request.user.emailNotifications == True:
+                        <input type="checkbox" class="form-check-input" id="emailNotification" onclick="ChangeCheckboxLabel(this)" checked>
+                        <label id="emailLabel" class="form-check-label" for="emailNotification">Opt out of all email notifications</label>
+                    %else:
+                        <input type="checkbox" class="form-check-input" id="emailNotification" onclick="ChangeCheckboxLabel(this)">
+                        <label id="emailLabel" class="form-check-label" for="emailNotification">Opt in to all email notifications</label>
+                    %endif
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="saveSettingsBtn" type="button" class="btn btn-primary">Save</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 
 </%block>

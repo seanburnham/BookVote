@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from django.contrib.auth.decorators import login_required
 from groups import models as gMod
 from users import models as uMod
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 @view_function
@@ -26,3 +27,20 @@ def leaveGroup(request, groupID):
         pass
 
     return request.dmp.render('profile.leaveGroup.html')
+
+
+@view_function
+@login_required
+def update_settings(request):
+
+    u = uMod.User.objects.get(id=request.user.id)
+
+    if request.POST.get('settings') == '1':
+        u.emailNotifications = True
+        u.save()
+    else:
+        u.emailNotifications = False
+        u.save()
+
+
+    return HttpResponse("Success")

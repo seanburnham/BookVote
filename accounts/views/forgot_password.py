@@ -76,7 +76,5 @@ class ForgotForm(Formless):
         url = self.request.build_absolute_uri()
         base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(url))
 
-        print(base_url, '-=-=-=-=-=-=-=-=-')
-
 
         send_mail('Hello', "Here is your password reset token:\n\n" + base_url + "accounts/forgot_password_token/" + generateToken() + "\n\nKeep on Reading!", 'bookvotingapp@gmail.com', [email])
