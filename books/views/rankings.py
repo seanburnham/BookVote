@@ -8,7 +8,7 @@ from users import models as uMod
 from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mail, send_mass_mail, EmailMultiAlternatives, get_connection
 
 @view_function
 @login_required
@@ -24,35 +24,56 @@ def process_request(request):
 
 
     if request.method == "POST":
-        try:
-            group = gMod.Group.objects.get(id = request.POST.get('group'))
-            if group.currentBook != None:
-                group.readBookList.add(bMod.Books.objects.get(id=group.currentBook.id))
-            
-            group.bookList.remove(bMod.Books.objects.get(id=request.POST.get('book')))
-            group.currentBookDeadline = request.POST.get('deadline')
-            group.currentBook = bMod.Books.objects.get(id=request.POST.get('book'))
-            group.save()
+        # try:
+        group = gMod.Group.objects.get(id = request.POST.get('group'))
+        if group.currentBook != None:
+            group.readBookList.add(bMod.Books.objects.get(id=group.currentBook.id))
+        
+        group.bookList.remove(bMod.Books.objects.get(id=request.POST.get('book')))
+        group.currentBookDeadline = request.POST.get('deadline')
+        group.currentBook = bMod.Books.objects.get(id=request.POST.get('book'))
+        group.save()
+
+
+        connection = get_connection() # uses SMTP server specified in settings.py
+        connection.open() # If you don't open the connection manually, Django will automatically open, then tear down the connection in msg.send()
+        messages = []
+        subject = 'New Book to Read for ' + group.name
+        text_content = '...'
+        html_content = '<p><a href="https://www.goodreads.com/book/isbn/' + group.currentBook.isbn + '">' + group.currentBook.title + '</a> by ' + group.currentBook.author + ' has been selected as the new book to read as a group.</p>' + '\n\n'  + '<p>The deadline for this book has been set to ' + str(group.currentBookDeadline) + '</p>'  
+
+        for u in group.users.all():
+            message = EmailMultiAlternatives(subject, text_content,  settings.EMAIL_HOST_USER, [u.email,])
+            message.attach_alternative(html_content, 'text/html')
+            messages.append(message)  
+        
+        connection.send_messages(messages)
+
+        connection.close() # Cleanup
+
 
             # subject = 'New Book to Read for ' + group.name
-            # message = group.currentBook.title + ' has been selected as the new book to read as a group. The deadline for this book has been set to ' + group.currentBookDeadline
+            # message = group.currentBook.title + ' by ' + group.currentBook.author + ' has been selected as the new book to read as a group.\n\n The deadline for this book has been set to ' + str(group.currentBookDeadline)
             # email_from = settings.EMAIL_HOST_USER
-            # # recipient_list = ['seanburnham92@yahoo.com',]
+            # # recipient_list = ['sburnham92@gmail.com',]
 
             # datatuple = ()
 
             # for u in group.users.all():
-            #     datatuple += (subject, message, email_from, [u.email])
+            #     datatuple = datatuple + ((subject, message, email_from, [u.email]),)
 
-            # print('-=--=-=-=-=-=-=-=-=-=-=',datatuple)
+            # # print('-=--=-=-=-=-=-=-=-=-=-=',datatuple)
 
             # send_mass_mail(datatuple)
+            
             # send_mail( subject, message, email_from, recipient_list )
+            # send_mail('Hello', "Here is your password reset token:\n\n" + base_url + "accounts/forgot_password_token/" + generateToken() + "\n\nKeep on Reading!", 'bookvotingapp@gmail.com', [email])
+
 
             # return HttpResponseRedirect('/books/bookvote/' + request.POST.get('group'))
 
-        except:
-            pass
+        # except:
+        #     pass
 
 
     context = {

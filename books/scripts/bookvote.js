@@ -88,46 +88,27 @@ function bookSearch() {
     var search = document.getElementById('search').value;
     document.getElementById('searchResults').innerHTML = "";
 
-    var url = "https://www.goodreads.com/search?q=" + search + "&format=xml&key=Te7ahdToiP8n7iV3Lpgw6g";
+    $.ajax({
+        //https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
+        url: "https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=AIzaSyDNoBh8E3DyB1PTktxBE2ZLpIK2kIPipS4",
+        dataType: "json",
 
-    $.get("http://query.yahooapis.com/v1/public/yql",
-    {
-        q: "select * from xml where url=\""+url+"\"",
-        format: "xml"
-    },
-        function(xml){
-        // contains XML with the following structure:
-        // <query>
-        //   <results>
-        //     <GoodreadsResponse>
-        //        ...
-        console.log(xml);
-        }
-    );
-
-    // $.ajax({
-    //     //https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
-    //     // https://www.goodreads.com/search?q=jump&format=xml&key=ZuqW9sL15d3JvEwmLyaNCg
-    //     // url: "https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=AIzaSyDNoBh8E3DyB1PTktxBE2ZLpIK2kIPipS4",
-    //     url: "https://www.goodreads.com/search?q=" + search + "&format=xml&key=Te7ahdToiP8n7iV3Lpgw6g",
-    //     dataType: "jsonp",
-
-    //     success: function (data) {
-    //         console.log(data)
-    //         // for (i = 0; i < data.items.length; i++) {
-    //         //     if(data.items[i].volumeInfo.industryIdentifiers[0].type == 'ISBN_13'){
-    //         //         var isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
-    //         //     }
-    //         //     else{
-    //         //         var isbn = data.items[i].volumeInfo.industryIdentifiers[1].identifier;
-    //         //     }
-    //         //     // var isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
-    //         //     searchResults.innerHTML += '<li class="list-group-item list-group-item"> <img src="' +
-    //         //         data.items[i].volumeInfo.imageLinks.smallThumbnail + '"/>' + '<div class="titleDiv align-middle"> <p>' + data.items[i].volumeInfo.title + ' - ' +
-    //         //         data.items[i].volumeInfo.authors + '</p> </div>' + '<button class="btn btn-warning" data-group="' + groupID +  '" data-id="'+ isbn + '">+</button> </li>';
-    //         // }
-    //     },
-    //     type: 'GET'
-    // });
+        success: function (data) {
+            console.log(data)
+            for (i = 0; i < data.items.length; i++) {
+                if(data.items[i].volumeInfo.industryIdentifiers[0].type == 'ISBN_13'){
+                    var isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
+                }
+                else{
+                    var isbn = data.items[i].volumeInfo.industryIdentifiers[1].identifier;
+                }
+                // var isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
+                searchResults.innerHTML += '<li class="list-group-item list-group-item"> <img src="' +
+                    data.items[i].volumeInfo.imageLinks.smallThumbnail + '"/>' + '<div class="titleDiv align-middle"> <p>' + data.items[i].volumeInfo.title + ' - ' +
+                    data.items[i].volumeInfo.authors + '</p> </div>' + '<button class="btn btn-warning" data-group="' + groupID +  '" data-id="'+ isbn + '">+</button> </li>';
+            }
+        },
+        type: 'GET'
+    });
 
 }
