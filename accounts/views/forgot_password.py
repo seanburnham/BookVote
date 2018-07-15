@@ -79,4 +79,4 @@ class ForgotForm(Formless):
         print(base_url, '-=-=-=-=-=-=-=-=-')
 
 
-        send_mail('Hello', "Here is your password reset token:\n\n" + base_url + "accounts/forgot_password_token/" + generateToken() + "\n\nfrom me", 'bookvotingapp@gmail.com', [email])
+        send_mail('Hello', "Here is your password reset token:\n\n" + base_url + "accounts/forgot_password_token/" + generateToken() + "\n\nKeep on Reading!", 'bookvotingapp@gmail.com', [email])
