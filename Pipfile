@@ -15,6 +15,7 @@ requests = "*"
 xmltodict = "*"
 social-auth-app-django = "*"
 sendgrid = "*"
+sendgrid-django = "*"
 
 [requires]
 
