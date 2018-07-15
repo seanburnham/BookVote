@@ -21,7 +21,7 @@ def process_request(request):
     form.submit_text = 'Submit'
     if form.is_valid():
         form.commit()
-        # return HttpResponseRedirect('/accounts/forgot_password_confirm')
+        return HttpResponseRedirect('/accounts/forgot_password_confirm')
 
     # render the template
     return request.dmp.render('forgot_password.html', {
