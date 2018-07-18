@@ -4,7 +4,7 @@ class Books(models.Model):
 	#ID
     title = models.TextField()
     author = models.TextField(null=True)
-    isbn = models.TextField(null=True)
+    bookID = models.TextField(null=True)
     image = models.TextField(null=True)
     users = models.ForeignKey('users.User', on_delete=models.SET_NULL, null=True)
     avgRating = models.DecimalField(max_digits=3, decimal_places=2, null=True)

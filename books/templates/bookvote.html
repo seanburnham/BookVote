@@ -123,6 +123,7 @@
                         <input type="search" id="search" placeholder="Add Book to Voting List" onkeyup="bookSearch();" style="width: 250px;">
                         <button id="searchBtn" class="btn btn-primary" onclick="bookSearch();" style="margin-bottom: 2px;">Search</button>
                     </div>
+                    ${csrf_input}
                     <div id="resultsDiv" class="text-left" style="margin-bottom: 30px; display: none;">
                         <ul class="list-group" id="searchResults">
                             <li>
@@ -159,7 +160,7 @@
                             <a href="" class="btn btn-primary" id="upVote" data-id="${bookList[0].id}" style="margin-right: 20px;"><i class="fa fa-thumbs-up" style="font-size: 24px;"></i></a>
                             <a href="" class="btn btn-danger" id="downVote" data-id="${bookList[0].id}" style="margin-left: 20px;"><i class="fa fa-thumbs-down" style="font-size: 24px;"></i></a>
                             <div class="text-right">
-                                <a target="_blank" href="https://www.goodreads.com/book/isbn/${bookList[0].isbn}" >View on Goodreads</a>
+                                <a target="_blank" href="https://www.goodreads.com/book/show/${bookList[0].bookID}" >View on Goodreads</a>
                             </div>
                             
                         %else:

@@ -18,6 +18,8 @@ $(function(){
         var dt = new Date(deadline)
         var today = new Date()
 
+        $('#deadlinePicker').modal('hide');
+
         if(dt > today){
             var group = groupID;
             var book = bookID;
@@ -36,7 +38,6 @@ $(function(){
                 traditional: true,
                 success: function(response){
                     console.log('Success');
-                    $('#deadlinePicker').modal('hide');
                     window.location.replace("https://bookvotingapp.herokuapp.com/books/bookvote/" + groupID);
                 },
             });

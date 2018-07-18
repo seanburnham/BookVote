@@ -15,18 +15,19 @@ from users import models as uMod
 from django.contrib.auth.decorators import login_required
 import requests
 import xmltodict
+import re
 
 
 @view_function
 @login_required
 def process_request(request, groupID):
 
-    group = gMod.Group.objects.get(id = groupID)
+    group = gMod.Group.objects.get(id = int(groupID))
 
     if request.user in group.users.all():
         try:
             books = group.bookList.all()
-            bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated');
+            bookList = bMod.Books.objects.filter(id__in = books).exclude(upVotes__id__contains =request.user.id).exclude(downVotes__id__contains =request.user.id).order_by('-dateCreated')
         except:
             bookList = []
 
@@ -49,11 +50,12 @@ def process_request(request, groupID):
 
 @view_function
 @login_required
-def addToList(request, groupID, isbn):
+def addToList(request, groupID, bookID):
     # add upVote to database
     
+
     try:
-        book = bMod.Books.objects.get(isbn = isbn)
+        book = bMod.Books.objects.get(bookID = bookID)
 
         group = gMod.Group.objects.get(id=groupID)
         group.bookList.add(book)    
@@ -61,28 +63,50 @@ def addToList(request, groupID, isbn):
     except:
         # "9781683690405"
         #Grab data from Goodreads API
+        # goodReadsKey = "Te7ahdToiP8n7iV3Lpgw6g"
+        # response = requests.get("https://www.goodreads.com/search.xml?key=" + goodReadsKey + "&q=" + isbn)
+        # o = xmltodict.parse(response.content)
+        # goodreads_tree = json.loads(json.dumps(o))
+
+        # title = goodreads_tree['GoodreadsResponse']['search']['results']['work']['best_book']['title']
+
+        # https://www.goodreads.com/book/show/17340050.xml?key=Te7ahdToiP8n7iV3Lpgw6g
         goodReadsKey = "Te7ahdToiP8n7iV3Lpgw6g"
-        response = requests.get("https://www.goodreads.com/search.xml?key=" + goodReadsKey + "&q=" + isbn)
+        # response = requests.get("https://www.goodreads.com/search.xml?key=" + goodReadsKey + "&q=" + bookID)
+        response = requests.get("https://www.goodreads.com/book/show/" + bookID + ".xml?key=" + goodReadsKey)
         o = xmltodict.parse(response.content)
         goodreads_tree = json.loads(json.dumps(o))
 
-        title = goodreads_tree['GoodreadsResponse']['search']['results']['work']['best_book']['title']
+        # desc = goodreads_tree['GoodreadsResponse']['book']['description']
+        # print(goodreads_tree)
+        # print(len(goodreads_tree['GoodreadsResponse']['book']['authors']['author'][0]), '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+        # print('+++++++++++++++++++++',goodreads_tree['GoodreadsResponse']['book']['authors']['author']['name'])
 
-        #Grab data from Google API
-        #Search by goodreads title data because google results end up grabbing multiple books even under one isbn
-        googleKey = "AIzaSyDNoBh8E3DyB1PTktxBE2ZLpIK2kIPipS4"
-        response2 = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + title + "&key=" + googleKey)
-        google_tree = json.loads(response2.content)
+        def cleanhtml(raw_html):
+            cleanr = re.compile('<.*?>')
+            cleantext = re.sub(cleanr, '', raw_html)
+            return cleantext
+
+        # print(cleanhtml(desc))
+
+        # #Grab data from Google API
+        # #Search by goodreads title data because google results end up grabbing multiple books even under one isbn
+        # googleKey = "AIzaSyDNoBh8E3DyB1PTktxBE2ZLpIK2kIPipS4"
+        # response2 = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + title + "&key=" + googleKey)
+        # google_tree = json.loads(response2.content)
 
         #Create a new book
         b = bMod.Books()
-        b.title = goodreads_tree['GoodreadsResponse']['search']['results']['work']['best_book']['title']
-        b.author = goodreads_tree['GoodreadsResponse']['search']['results']['work']['best_book']['author']['name']
-        b.isbn = isbn
-        b.image = google_tree['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']
-        b.description = google_tree['items'][0]['volumeInfo']['description']
-        b.avgRating = goodreads_tree['GoodreadsResponse']['search']['results']['work']['average_rating']
-        b.pageCount = google_tree['items'][0]['volumeInfo']['pageCount']
+        b.title = goodreads_tree['GoodreadsResponse']['book']['title']
+        try: 
+            b.author = goodreads_tree['GoodreadsResponse']['book']['authors']['author'][0]['name']
+        except:
+            b.author = goodreads_tree['GoodreadsResponse']['book']['authors']['author']['name']
+        b.bookID = bookID
+        b.image = goodreads_tree['GoodreadsResponse']['book']['small_image_url']
+        b.description = cleanhtml(goodreads_tree['GoodreadsResponse']['book']['description'])
+        b.avgRating = goodreads_tree['GoodreadsResponse']['book']['average_rating']
+        b.pageCount = goodreads_tree['GoodreadsResponse']['book']['num_pages']
         b.users_id = request.user.id
         b.save()
 

@@ -44,7 +44,7 @@ def process_request(request):
         messages = []
         subject = 'New Book to Read for ' + group.name
         text_content = '...'
-        html_content = '<p><a href="https://www.goodreads.com/book/isbn/' + group.currentBook.isbn + '">' + group.currentBook.title + '</a> by ' + group.currentBook.author + ' has been selected as the new book to read as a group.</p>' + '\n\n'  + '<p>The deadline for this book has been set to ' + str(group.currentBookDeadline) + '</p>' + '\n\n\n'  + '<p><a href="' + base_url + "users/profile/" + '">Opt out of future emails</a></p>' 
+        html_content = '<p><a href="https://www.goodreads.com/book/show/' + group.currentBook.bookID + '">' + group.currentBook.title + '</a> by ' + group.currentBook.author + ' has been selected as the new book to read as a group.</p>' + '\n\n'  + '<p>The deadline for this book has been set to ' + str(group.currentBookDeadline) + '</p>' + '\n\n\n'  + '<p><a href="' + base_url + "users/profile/" + '">Opt out of future emails</a></p>' 
 
         for u in group.users.all():
             if u.emailNotifications == True:
