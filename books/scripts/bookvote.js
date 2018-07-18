@@ -88,7 +88,7 @@ function bookSearch() {
 
     var url = "https://www.goodreads.com/search.xml?key=Te7ahdToiP8n7iV3Lpgw6g&q=" + encodeURI(search);
 
-    $.get("http://query.yahooapis.com/v1/public/yql", {
+    $.get("https://query.yahooapis.com/v1/public/yql", {
             q: "select * from xml where url=\"" + url + "\"",
             format: "xml"
         },
