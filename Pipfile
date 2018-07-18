@@ -16,7 +16,6 @@ xmltodict = "*"
 social-auth-app-django = "*"
 sendgrid = "*"
 sendgrid-django = "*"
-re = "*"
 
 [requires]
 
