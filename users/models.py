@@ -19,3 +19,13 @@ class ResetPasswordTokens(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     token = models.TextField()
     dateCreated = models.DateTimeField(auto_now_add=True)
+
+class Junk(models.Model):
+    # identifier for unique row (id of some sort)
+	identifier = models.TextField(null=True)
+	data1 = models.TextField(null=True)
+	data2 = models.TextField(null=True)
+	data3 = models.TextField(null=True)
+	data4 = models.TextField(null=True)
+	data5 = models.TextField(null=True)
+	data6 = models.TextField(null=True)
