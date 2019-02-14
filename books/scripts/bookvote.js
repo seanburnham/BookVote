@@ -83,15 +83,20 @@ function bookSearch() {
     var search = document.getElementById('search').value;
     document.getElementById('searchResults').innerHTML = "";
 
+    // $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('http://google.com') + '&callback=?', function(data){
+    //     alert(data.contents);
+    // });
 
     // var url = "https://www.goodreads.com/search?q=" + search + "&format=xml&key=Te7ahdToiP8n7iV3Lpgw6g";
 
     var url = "https://www.goodreads.com/search.xml?key=Te7ahdToiP8n7iV3Lpgw6g&q=" + encodeURI(search);
 
-    $.get("https://query.yahooapis.com/v1/public/yql", {
-            q: "select * from xml where url=\"" + url + "\"",
-            format: "xml"
-        },
+    // $.get('http://cors-anywhere.herokuapp.com/' + url, function(xml){
+    //     console.log(xmlToJson(xml)['GoodreadsResponse']['search']['results']['work']);
+    // });
+
+
+    $.get("http://cors-anywhere.herokuapp.com/" + url, 
         function (xml) {
             // contains XML with the following structure:
             // <query>
@@ -100,7 +105,7 @@ function bookSearch() {
             //        ...
             // console.log(JSON.stringify(xmlToJson(xml)))
 
-            var books = xmlToJson(xml)['query']['results']['GoodreadsResponse']['search']['results']['work']
+            var books = xmlToJson(xml)['GoodreadsResponse']['search']['results']['work']
             for (b in books){
                 // var aveRating = books[b]['average_rating']['#text'];
                 var bookID = books[b]['best_book']['id']['#text'];
