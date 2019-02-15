@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import shutil
-
+import django_heroku
 from decouple import config
 import dj_database_url
 
@@ -241,3 +241,5 @@ LOGGING = {
         },
     },
 }
+
+django_heroku.settings(locals())
