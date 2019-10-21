@@ -15,7 +15,7 @@ django-select2==6.1.0
 django-tinymce==2.7.0
 django-username-email==2.2.1
 django-verified-email-field==1.2.3
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 ez-setup==0.9
 googlemaps==2.4.6
 idna==2.6
